@@ -1,0 +1,78 @@
+/* Estilo para el contenedor del card */
+.login-card {
+  width: 400px;
+
+  margin: 50px auto;
+  padding: 50px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+
+mat-card-header {
+  text-align: center;
+  color: #13B6DC;
+}
+
+mat-card-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #7fd7fa;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+/* Estilo de los botones */
+button {
+  margin: 10px 0;
+  padding: 10px;
+}
+
+button[type="submit"] {
+  background-color: #13B6DC;
+  color: #fff;
+}
+
+button[type="button"] {
+  background-color: #817e7e;
+  color: #fff;
+
+}
+
+/* Spinner */
+.loading-spinner {
+  display: block;
+  margin: 20px auto;
+}
+
+/* Estilo del mensaje de error */
+mat-error {
+  color: #f44336;
+  text-align: center;
+  font-size: 14px;
+}
+.mat-typography {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+}
+.card singnin-content {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+}

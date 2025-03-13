@@ -1,0 +1,30 @@
+
+
+<mat-card class="login-card">
+  <img src="assets/logo.png" alt="Logo" class="logo">
+  <mat-card-header>
+    <mat-card-title>{{titulo}}</mat-card-title>
+    <br>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="loginForm" class="login-form">
+      <div class="form-group">
+        <mat-form-field class="example-full-width">
+          <input matInput formControlName="username" placeholder="Correo electrónico" type="text" required>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field class="example-full-width">
+          <input matInput formControlName="password" placeholder="Contraseña" type="password" required>
+        </mat-form-field>
+      </div>
+      <div class="form-actions">
+        <button mat-raised-button color="primary" type="submit" (click)="acceder()">Acceder</button>
+        <button mat-raised-button color="accent" type="button" (click)="forgotPassword()">Olvidé mi contraseña</button>
+      </div>
+    </form>
+    <mat-spinner *ngIf="showSpinner" class="loading-spinner"></mat-spinner>
+  </mat-card-content>
+  <mat-error *ngIf="error">{{alerta}}</mat-error>
+</mat-card>
+
