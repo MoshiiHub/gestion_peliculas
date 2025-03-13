@@ -1,0 +1,30 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{pelicula.title}}</mat-card-title>
+    <mat-card-subtitle>{{pelicula.release_date | date}}</mat-card-subtitle>
+  </mat-card-header>
+
+  <!-- Imagen de la película -->
+  <img mat-card-image [src]="imageUrl(pelicula.poster_path)" [alt]="pelicula.title">
+
+  <mat-card-content class="mt-2">
+    <p>
+      <strong>Sinopsis:</strong>
+      {{pelicula.overview || 'No disponible'}}
+    </p>
+  </mat-card-content>
+
+  <mat-divider></mat-divider>
+
+  <button mat-button mat-raised color="primary" [routerLink]="['/peliculas/edit', pelicula.id]">
+    <mat-icon>edit</mat-icon>
+    Editar
+  </button>
+
+  <span class="spacer"></span>
+
+  <button mat-button mat-raised [routerLink]="['/peliculas', pelicula.id]">
+    <mat-icon>more_horiz</mat-icon>
+    Más
+  </button>
+</mat-card>

@@ -1,0 +1,101 @@
+/* Contenedor de la grilla de tarjetas */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); /* Ajusta el tamaño de las tarjetas */
+  gap: 16px;  /* Espaciado entre las tarjetas */
+  margin-bottom: 20px;
+}
+
+/* Estilos para las tarjetas de película */
+.movie-card {
+  max-width: 100%;
+  min-height: 400px; /* Altura fija para las tarjetas */
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efecto de hover sobre las tarjetas */
+.movie-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Header de la tarjeta (título y fecha) */
+.mat-card-header {
+  background-color: #f5f5f5;
+  padding: 16px;
+}
+
+/* Título de la tarjeta */
+.mat-card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Subtítulo (fecha) de la tarjeta */
+.mat-card-subtitle {
+  font-size: 1rem;
+  color: gray;
+}
+
+/* Imagen de la película */
+.mat-card-image {
+  width: 100%;
+  height: 200px; /* Altura fija para la imagen */
+  object-fit: cover; /* Hace que la imagen ocupe todo el espacio sin distorsionarse */
+  display: block;
+}
+
+/* Contenido de la tarjeta (sinopsis) */
+.mat-card-content {
+  padding: 16px;
+  font-size: 0.9rem;
+  color: #444;
+  flex-grow: 1; /* Hace que el contenido ocupe el espacio restante */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Agrega '...' si el texto es demasiado largo */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+/* División de la tarjeta */
+.mat-divider {
+  margin: 10px 0;
+}
+
+/* Contenedor de los botones de acción */
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+}
+
+/* Estilos de los botones de acción */
+.card-actions button {
+  padding: 5px 10px;
+  background-color: #25496f;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+/* Efecto hover de los botones */
+.card-actions button:hover {
+  background-color: #1e3655;
+}
+
+#sidebar{
+  height: 100vh;
+  width: 250px;
+}
+

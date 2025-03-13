@@ -1,0 +1,38 @@
+<div class="flex flex-column p-2">
+  <h3>Buscador de Películas</h3>
+
+  <mat-form-field>
+    <mat-label>Buscar películas</mat-label>
+    <input type="text"
+     matInput
+     [formControl]="searchInput"
+     (input)="searchMovie()"
+     [matAutocomplete]="auto"
+     />
+
+    <mat-autocomplete autoActiveFirstOption
+     #auto="matAutocomplete"
+     (optionSelected)="onSelectedOption($event)">
+
+      <mat-option *ngFor="let movie of movies" [value]="movie">
+        {{ movie.title }} ({{ movie.release_date | date:'yyyy' }})
+      </mat-option>
+
+      <mat-option *ngIf="movies.length === 0 && searchInput.value" value="">
+        No se encontraron resultados con el término "{{ searchInput.value }}"
+      </mat-option>
+
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <!-- Mostrar detalles de la película seleccionada -->
+  <div *ngIf="selectedMovie" class="movie-card">
+    <h4>{{ selectedMovie.title }}</h4>
+    <p><strong>Fecha de Estreno:</strong> {{ selectedMovie.release_date | date:'longDate' }}</p>
+    <p><strong>Idioma Original:</strong> {{ selectedMovie.original_language | uppercase }}</p>
+    <p><strong>Resumen:</strong> {{ selectedMovie.overview }}</p>
+    <img [src]="getPosterUrl(selectedMovie.poster_path)" [alt]="selectedMovie.title">
+  </div>
+
+  {{ searchInput.value | json }}
+</div>

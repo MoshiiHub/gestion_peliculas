@@ -1,9 +1,9 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie';
+import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/services/auth.service';
 import { CommonService } from 'src/app/shared/common.service';
 import { firstValueFrom } from 'rxjs';
@@ -22,7 +22,7 @@ export class LoginComponent {
     password: new FormControl('', Validators.required)
   });
 
-  titulo = 'Acceso a la plataforma';
+  titulo = 'Acceso CRM RADFPD';
   alerta: string = '';
   showSpinner = false;
   error: string = '';
@@ -44,19 +44,18 @@ export class LoginComponent {
       const RESPONSE = await firstValueFrom(this.authService.doLogin(data));
 
       if (RESPONSE.ok && RESPONSE.data?.token) {
-        // Almacena el token y otros datos en el localStorage
         localStorage.setItem('token', RESPONSE.data.token);
         localStorage.setItem('usuario', RESPONSE.data.usuario);
         localStorage.setItem('nombre_publico', RESPONSE.data.nombre_publico);
         localStorage.setItem('ultimaOpcion', RESPONSE.data.opcion);
         localStorage.setItem('ultimoGrupo', RESPONSE.data.grupo);
 
-        // Establece el token para solicitudes futuras
-        this.commonService.setAuthToken(RESPONSE.data.token);
+        this.commonService.setHeaders(new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${RESPONSE.data.token}`
+        }));
 
-        // Redirige al usuario a la página de películas
-        // Si RESPONSE.data.accion ya está configurado correctamente, se puede usar ese valor, pero aquí forzamos la redirección a 'peliculas'
-        this.router.navigate(['/peliculas']);  // Aquí rediriges directamente a las películas
+        this.router.navigate([`/${RESPONSE.data.accion}`]);
       } else {
         this.manejarError(RESPONSE);
       }

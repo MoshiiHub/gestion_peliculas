@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, of } from 'rxjs';
+import { BehaviorSubject, catchError, of } from 'rxjs';
 import { Peliculas, Result } from 'src/app/shared/interfaces/peliculas';
 
 @Injectable({
@@ -13,12 +13,14 @@ export class PeliculasService {
   private apiKey = '8f6ad54766ad4f66cdf85a360b029b35';
   private serveUrl = 'https://api.themoviedb.org/3';
 
+  private listadoPeliculasSubject = new BehaviorSubject<Result[]>([]);
+  public listadoPeliculas$ = this.listadoPeliculasSubject.asObservable();
+
   get historialEtiqueta() {
     return [...this._historialEtiquetas];
   }
 
   constructor(private http: HttpClient) {
-    // Cargar el historial de etiquetas desde el localStorage cuando el servicio se inicializa
     this.cargarLocalStorage();
   }
 
@@ -30,7 +32,6 @@ export class PeliculasService {
     const historial = localStorage.getItem('historialEtiqueta');
     if (historial) {
       this._historialEtiquetas = JSON.parse(historial);
-      // Opcional: Buscar la primera etiqueta en el historial al iniciar el servicio
       if (this._historialEtiquetas.length > 0) {
         this.buscarEtiqueta(this._historialEtiquetas[0]);
       }
@@ -39,44 +40,61 @@ export class PeliculasService {
 
   ordenarHistorial(etiqueta: string): void {
     etiqueta = etiqueta.toLowerCase().trim();
-    if (etiqueta === "") {
+    if (!etiqueta) {
       window.alert("No puedes introducir vacío");
       return;
     }
 
-    if (this._historialEtiquetas.includes(etiqueta)) {
-      this._historialEtiquetas = this._historialEtiquetas.filter(e => e !== etiqueta);
-    }
-
-    // Si el historial tiene 10 etiquetas, eliminamos la última
+    this._historialEtiquetas = this._historialEtiquetas.filter(e => e !== etiqueta);
     if (this._historialEtiquetas.length === 10) {
       this._historialEtiquetas.pop();
     }
 
-    // Añadir la nueva etiqueta al inicio
     this._historialEtiquetas.unshift(etiqueta);
     this.almacenarLocalStorage();
   }
 
-  buscarEtiqueta(etiqueta: string) {
+  buscarEtiqueta(etiqueta: string, pagina: number = 1) {
     this.ordenarHistorial(etiqueta);
 
     const params = new HttpParams()
       .set('api_key', this.apiKey)
       .set('query', etiqueta)
-      .set('page', '1'); // Página 1, puedes implementar paginación si lo deseas
+      .set('page', pagina.toString());
 
-    // Realiza la solicitud HTTP GET a la API para buscar las películas
     this.http.get<Peliculas>(`${this.serveUrl}/search/movie`, { params })
       .pipe(
         catchError(err => {
           console.error('Error al buscar películas', err);
-          return of({ page: 1, results: [], total_pages: 0, total_results: 0 }); // Devuelve un resultado vacío en caso de error
+          return of({ page: pagina, results: [], total_pages: 0, total_results: 0 });
         })
       )
       .subscribe(resp => {
-        this.listadoPeliculas = resp.results;
-        console.log('Películas encontradas:', this.listadoPeliculas);
+        this.listadoPeliculas = resp.results || [];
+        this.listadoPeliculasSubject.next(this.listadoPeliculas);
+      });
+  }
+
+  getImageUrl(path: string | null): string {
+    const baseUrl = 'https://image.tmdb.org/t/p/w500';
+    return path ? `${baseUrl}${path}` : 'assets/no-image.png';
+  }
+
+  buscarPeliculasPopulares(pagina: number = 1) {
+    const params = new HttpParams()
+      .set('api_key', this.apiKey)
+      .set('page', pagina.toString());
+
+    this.http.get<Peliculas>(`${this.serveUrl}/movie/popular`, { params })
+      .pipe(
+        catchError(err => {
+          console.error('Error al obtener películas populares', err);
+          return of({ page: pagina, results: [], total_pages: 0, total_results: 0 });
+        })
+      )
+      .subscribe(resp => {
+        this.listadoPeliculas = resp.results || [];
+        this.listadoPeliculasSubject.next(this.listadoPeliculas);
       });
   }
 }

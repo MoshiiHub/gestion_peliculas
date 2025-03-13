@@ -7,7 +7,7 @@ import {
 } from '@angular/common/http';
 import { AuthService } from '../services/auth.service';
 import { Observable } from 'rxjs';
-import { CookieService } from 'ngx-cookie';
+import { CookieService } from 'ngx-cookie-service';
 
 // import { JwtHelperService } from '@auth0/angular-jwt';
 

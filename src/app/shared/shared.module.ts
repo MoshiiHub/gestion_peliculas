@@ -9,13 +9,13 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
-import { PaginaPrincipalComponent } from './pages/pagina-principal/pagina-principal.component';
-import { PeliculasModule } from '../peliculas/peliculas.module';
+
+
 
 
 
 @NgModule({
-  declarations: [Error404PageComponent, PaginaPrincipalComponent],
+  declarations: [Error404PageComponent],
   imports: [
     CommonModule,
     MatNativeDateModule,
@@ -26,7 +26,6 @@ import { PeliculasModule } from '../peliculas/peliculas.module';
     ReactiveFormsModule,
     MatIconModule,
     MatCardModule,
-    PeliculasModule
   ],
   exports: [Error404PageComponent]
 })

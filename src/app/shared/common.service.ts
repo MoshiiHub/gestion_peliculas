@@ -1,6 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CookieService } from 'ngx-cookie';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,10 @@ export class CommonService {
       'Content-Type': 'application/json',
       ...(token ? { Authorization: `Bearer ${token}` } : {}) // Solo agrega si hay token
     });
+  }
+
+  public setHeaders(headers: HttpHeaders) {
+    this.headers = headers;
   }
 
   // ✅ Setter público para actualizar headers (usado en LoginComponent)

@@ -9,6 +9,7 @@ import { RecoverPasswordComponent } from './recover-password/recover-password.co
 import { LoginComponent } from './login/login.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { MaterialModule } from '../material/material.module';
+import { LayoutPageComponent } from '../peliculas/pages/layout-page/layout-page.component';
 
 
 @NgModule({
@@ -16,7 +17,7 @@ import { MaterialModule } from '../material/material.module';
     HomeComponent,
     RecoverPasswordComponent,
     LoginComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
   ],
   imports: [
     CommonModule,

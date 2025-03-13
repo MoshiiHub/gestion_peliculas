@@ -3,9 +3,8 @@ import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/te
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CrudMaterialModule } from 'src/app/modules/crud-material/crud-material.module';
-
 import { LoginComponent } from './login.component';
+import { MaterialModule } from 'src/app/material/material.module';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -17,7 +16,7 @@ describe('LoginComponent', () => {
         HttpClientModule,
         RouterTestingModule,
         MatSnackBarModule,
-        CrudMaterialModule,
+        MaterialModule,
         BrowserAnimationsModule
       ],
       declarations: [ LoginComponent ]

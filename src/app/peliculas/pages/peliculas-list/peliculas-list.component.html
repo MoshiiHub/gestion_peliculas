@@ -1,0 +1,41 @@
+<h1>Listado de Películas</h1>
+
+<!-- Contenedor de las tarjetas de películas -->
+<div class="grid mb-8">
+  <div *ngFor="let pelicula of peliculas" class="col-12 sm:col-4 md:col-3 lg:col-2">
+    <!-- Tarjeta de película -->
+    <div class="movie-card">
+      <mat-card-header>
+        <mat-card-title>{{ pelicula.title }}</mat-card-title>
+        <mat-card-subtitle>{{ pelicula.release_date | date }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <!-- Imagen de la película -->
+      <img mat-card-image [src]="imageUrl(pelicula.poster_path)" [alt]="pelicula.title">
+
+      <!-- Contenido de la película (sinopsis) -->
+      <mat-card-content>
+        <p><strong>Sinopsis:</strong> {{ pelicula.overview || 'No disponible' }}</p>
+      </mat-card-content>
+
+      <!-- Separador de la tarjeta -->
+      <mat-divider></mat-divider>
+
+      <!-- Contenedor de los botones de acción -->
+      <div class="card-actions">
+        <!-- Botón "Editar" -->
+        <button mat-button mat-raised color="primary" [routerLink]="['/peliculas/edit', pelicula.id]">
+          <mat-icon>edit</mat-icon>
+          Editar
+        </button>
+
+        <!-- Botón "Más" -->
+        <button mat-button mat-raised [routerLink]="['/peliculas', pelicula.id]">
+          <mat-icon>more_horiz</mat-icon>
+          Más
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
