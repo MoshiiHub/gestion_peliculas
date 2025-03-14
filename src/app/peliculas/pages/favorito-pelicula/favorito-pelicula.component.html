@@ -1,0 +1,16 @@
+<div class="favoritos-container">
+  <h2>Películas Favoritas</h2>
+
+  <div *ngIf="favoritos.length === 0">
+    <p>No tienes películas favoritas.</p>
+  </div>
+
+  <div *ngIf="favoritos.length > 0">
+    <div class="pelicula-card" *ngFor="let pelicula of favoritos">
+      <img [src]="pelicula.poster_path ? 'https://image.tmdb.org/t/p/w500' + pelicula.poster_path : 'assets/no-image.png'" alt="Póster de {{ pelicula.title }}">
+      <h3>{{ pelicula.title }}</h3>
+      <p>{{ pelicula.release_date | date }}</p>
+      <button (click)="quitarFavorito(pelicula)">Quitar de favoritos</button>
+    </div>
+  </div>
+</div>

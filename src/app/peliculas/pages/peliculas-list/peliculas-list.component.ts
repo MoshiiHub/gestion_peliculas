@@ -36,4 +36,11 @@ imageUrl(posterPath: string): string {
   const baseUrl = 'https://image.tmdb.org/t/p/w500';
   return posterPath ? `${baseUrl}${posterPath}` : 'path-to-default-image.jpg'; // Imagen por defecto si no existe el póster
 }
+
+  // Función para añadir una película a favoritos
+  addToFavorites(pelicula: Result) {
+    this.peliculasService.ingresarFavorito(pelicula);  // Llamamos al método del servicio para añadirla a favoritos
+    console.log('Película añadida a favoritos:', pelicula.title);
+  }
+
 }

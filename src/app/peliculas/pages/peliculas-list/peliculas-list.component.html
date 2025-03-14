@@ -23,16 +23,15 @@
 
       <!-- Contenedor de los botones de acción -->
       <div class="card-actions">
-        <!-- Botón "Editar" -->
-        <button mat-button mat-raised color="primary" [routerLink]="['/peliculas/edit', pelicula.id]">
-          <mat-icon>edit</mat-icon>
-          Editar
+        <!-- Botón para añadir a favoritos -->
+        <button mat-button mat-raised color="primary" (click)="addToFavorites(pelicula)">
+          <mat-icon>favorite</mat-icon>
         </button>
 
         <!-- Botón "Más" -->
         <button mat-button mat-raised [routerLink]="['/peliculas', pelicula.id]">
           <mat-icon>more_horiz</mat-icon>
-          Más
+
         </button>
       </div>
     </div>

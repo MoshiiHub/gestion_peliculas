@@ -20,9 +20,4 @@ export class LayoutPageComponent {
   logout() {
     this.authService.doLogout();
   }
-  get user(): User | undefined {
-    return this.authService.currentUser;
-  }
-
-
 }

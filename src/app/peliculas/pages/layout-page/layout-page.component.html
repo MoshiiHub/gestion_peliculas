@@ -24,10 +24,12 @@
       <mat-icon>menu</mat-icon>
       <span class="spacer">Menu</span>
     </button>
-    <span class="spacer"></span>
-    <span>{{user?.usuario}}</span>
+    <span class="spacer"></span> <!-- Esto empuja el contenido a la izquierda -->
 
-    <button mat-button color="warn" (click)="logout()">
+
+    <!-- Aquí agregamos otro spacer para empujar el logout a la derecha -->
+    <button mat-button color="warn" (click)="logout()" style="margin-left:auto">
+
       <mat-icon>logout</mat-icon>
       Logout
     </button>
@@ -36,8 +38,6 @@
   <!-- Contenido principal -->
   <div class="container p-2">
     <router-outlet></router-outlet>
-
-
     <br>
   </div>
 </mat-sidenav-container>

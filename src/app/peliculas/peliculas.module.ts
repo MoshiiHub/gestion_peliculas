@@ -21,12 +21,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { SearchPeliculasComponent } from './pages/search-peliculas/search-peliculas.component';
+import { FavoritoPeliculaComponent } from './pages/favorito-pelicula/favorito-pelicula.component';
 
 
 
 
 @NgModule({
-  declarations: [CardComponent, PeliculasListComponent,LayoutPageComponent, SearchPeliculasComponent],
+  declarations: [CardComponent, PeliculasListComponent,LayoutPageComponent, SearchPeliculasComponent, FavoritoPeliculaComponent],
   imports: [
     CommonModule,
      MatNativeDateModule,

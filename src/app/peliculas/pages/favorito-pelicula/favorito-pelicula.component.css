@@ -1,0 +1,28 @@
+.favoritos-container {
+  padding: 20px;
+}
+
+.pelicula-card {
+  display: inline-block;
+  width: 200px;
+  margin: 10px;
+  text-align: center;
+}
+
+.pelicula-card img {
+  width: 100%;
+  height: auto;
+}
+
+.pelicula-card button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.pelicula-card button:hover {
+  background-color: darkred;
+}
