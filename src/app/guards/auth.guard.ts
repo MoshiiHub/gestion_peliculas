@@ -11,7 +11,7 @@ import { ApiResponse } from '../shared/interfaces/api-response';
   providedIn: 'root'
 })
 
-export class AuthGuardService implements CanActivate {
+export class AuthGuardPublic implements CanActivate {
 
   constructor(
     private auth: AuthService,
@@ -20,27 +20,18 @@ export class AuthGuardService implements CanActivate {
     private commonService: CommonService  // Inyectamos CommonService
   ) {}
 
-  async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
+  canActivate(): boolean {
     const token = localStorage.getItem('authToken');
+
     if (!token) {
-      // Si no hay token, redirige a la página de login
+      console.log('Usuario no autenticado, redirigiendo a /home');
       this.router.navigate(['/home']);
       return false;
     }
 
-    const rutaSeleccionada = state.url.substring(1).split('/')[0];
-    try {
-      const response = await this.auth.isAuthenticated(state.url);
-      if (!response) {
-        this.router.navigate(['/home']);  // Redirige si no está autenticado
-      }
-      return response;
-    } catch (error) {
-      console.error('Error de autenticación:', error);
-      this.router.navigate(['/home']);  // Redirige si hay un error
-      return false;
-    }
+    return true; // ✅ Permite acceder a /pagina-principal si hay sesión
   }
+
 
   // Método que se encarga de verificar si el usuario está autenticado
   async isAuthenticated(url: string): Promise<boolean> {

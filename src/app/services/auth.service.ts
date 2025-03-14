@@ -31,7 +31,7 @@ export class AuthService {
 
 
             // Redirigir a 'peliculas-list' después del login
-            this.router.navigate(['/layout']).then(() => {
+            this.router.navigate(['/pagina-principal']).then(() => {
               console.log('Redirigiendo a peliculas-list');
             });
           }
@@ -56,16 +56,29 @@ export class AuthService {
   }
   doLogout() {
     const usuario = localStorage.getItem('usuario');
+
     if (!usuario) {
       console.error('No hay usuario en el localStorage');
-      return; // Salir sin intentar hacer logout si no hay usuario
+      this.router.navigate(['/home']); // 🔄 Asegura que se redirija al home incluso si no hay usuario
+      return;
     }
 
     const body = new FormData();
     body.append('user', usuario);
-    this.cookieService.deleteAll();
-    localStorage.clear();
-    return this.http.post(`${URL_API}/logout.php`, body);
+
+    this.http.post(`${URL_API}/logout.php`, body).subscribe(
+      () => {
+        console.log('Sesión cerrada en el servidor');
+        this.cookieService.deleteAll();
+        localStorage.clear();
+        this.router.navigate(['/home']); // 🔄 Redirige al home tras cerrar sesión
+      },
+      (error) => {
+        console.error('Error al cerrar sesión:', error);
+        // Redirige de todos modos para evitar que el usuario quede atrapado en una sesión rota
+        this.router.navigate(['/home']);
+      }
+    );
   }
 
   resetPassword(formularioCorreo: Record<string, any>) {

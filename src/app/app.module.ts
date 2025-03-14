@@ -26,6 +26,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { CookieService } from 'ngx-cookie-service';
+import {AuthGuardPublic} from './guards/auth.guard';
+import { AuthService } from './services/auth.service';
 
 
 @NgModule({
@@ -71,7 +73,7 @@ import { CookieService } from 'ngx-cookie-service';
 
   ],
   providers: [
-    CookieService,
+    CookieService,AuthGuardPublic, AuthService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
 
   ],
