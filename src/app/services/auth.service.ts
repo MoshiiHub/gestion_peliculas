@@ -6,6 +6,7 @@ import { CookieService} from 'ngx-cookie-service';
 import { CommonService } from '../shared/common.service';
 import { tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { User } from '../shared/interfaces/peliculas';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,12 @@ export class AuthService {
     private cookieService: CookieService,
     private commonService: CommonService
   ) {}
+  private user?: User;
+
+  get currentUser(): User | undefined {
+    if (!this.user) return undefined;
+    return structuredClone(this.user);
+  }
 
   doLogin(data: Record<string, any>) {
     return this.http.post<ApiResponse>(`${URL_API}/login.php`, JSON.stringify(data)).pipe(

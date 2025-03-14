@@ -12,9 +12,8 @@ const routes: Routes = [
     children: [
   { path: 'peliculas-list', component: PeliculasListComponent },
   {path: 'search-peliculas', component:SearchPeliculasComponent},
-
+  {path: '**', redirectTo: 'peliculas-list'}
     ]},
-    {path:'**', redirectTo:'pagina-principal'}
 ];
 
 @NgModule({

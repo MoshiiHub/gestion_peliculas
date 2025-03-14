@@ -1,16 +1,16 @@
 <mat-sidenav-container fullscreen>
   <!-- Sidebar -->
   <mat-sidenav #sidenav mode="push" [ngStyle]="{width: '250px'}">
-    <mat-toolbar color="warn">
-      <span>Películas </span>
+    <mat-toolbar color="primary">
+      <span>Menu </span>
       <span class="spacer"></span>
       <button mat-icon-button (click)="sidenav.toggle()">
-        <mat-icon>close</mat-icon>
+        <mat-icon>menu</mat-icon>
       </button>
     </mat-toolbar>
 
     <mat-nav-list>
-      <!-- Generar dinámicamente las opciones del menú de películas -->
+      <!-- Elimina el (click)="sidenav.close()" -->
       <a mat-list-item *ngFor="let item of sidebarItems" [routerLink]="item.url" (click)="sidenav.close()">
         <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
         {{ item.label }}
@@ -25,6 +25,7 @@
       <span class="spacer">Menu</span>
     </button>
     <span class="spacer"></span>
+    <span>{{user?.usuario}}</span>
 
     <button mat-button color="warn" (click)="logout()">
       <mat-icon>logout</mat-icon>
@@ -34,6 +35,10 @@
 
   <!-- Contenido principal -->
   <div class="container p-2">
-    <app-peliculas-list></app-peliculas-list>
+    <router-outlet></router-outlet>
+
+
+    <br>
   </div>
 </mat-sidenav-container>
+

@@ -6,10 +6,14 @@ import { HttpClient } from '@angular/common/http';
 import { CommonService } from '../shared/common.service';
 import { ApiResponse } from '../shared/interfaces/api-response';
 
-
+/***********************************************
+ * Impide que usuarios
+ * no autenticados accedan a /pagina-principal
+ **********************************************/
 @Injectable({
   providedIn: 'root'
 })
+
 
 export class AuthGuardPublic implements CanActivate {
 
@@ -18,18 +22,22 @@ export class AuthGuardPublic implements CanActivate {
     private router: Router,
     private http: HttpClient,  // Inyectamos HttpClient
     private commonService: CommonService  // Inyectamos CommonService
-  ) {}
+  ) { }
 
   canActivate(): boolean {
+    // Verificar si el usuario tiene un token en localStorage
     const token = localStorage.getItem('authToken');
 
+    // Si no hay token (el usuario NO está autenticado)
     if (!token) {
       console.log('Usuario no autenticado, redirigiendo a /home');
+      // Redirige a la página de inicio (/home) si no está autenticado
       this.router.navigate(['/home']);
+      // Bloquea el acceso a la ruta protegida
       return false;
     }
-
-    return true; // ✅ Permite acceder a /pagina-principal si hay sesión
+ // Si el token existe (usuario autenticado), permite el acceso
+    return true;
   }
 
 

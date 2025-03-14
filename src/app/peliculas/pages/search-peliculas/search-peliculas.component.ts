@@ -31,6 +31,16 @@ export class SearchPeliculasComponent {
     );
   }
 
+   // Resetea la búsqueda cuando se presiona Enter sin nada en el campo
+   public resetSearch() {
+    const value: string = this.searchInput.value?.trim() || '';
+    if (!value) {
+      this.movies = []; // Limpia los resultados
+      this.selectedMovie = undefined; // Limpia la película seleccionada
+      this.searchInput.reset(); // Limpia el campo de búsqueda
+    }
+  }
+
   public onSelectedOption(event: MatAutocompleteSelectedEvent) {
     if (!event.option.value) {
       this.selectedMovie = undefined;
