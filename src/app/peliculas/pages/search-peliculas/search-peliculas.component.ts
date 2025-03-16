@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { Subject, takeUntil } from 'rxjs';
 import { PeliculasService } from 'src/app/services/peliculas.service';
 import { Result } from 'src/app/shared/interfaces/peliculas';
 
@@ -15,6 +16,7 @@ export class SearchPeliculasComponent {
   public movies: Result[] = [];
   public selectedMovie?: Result;
   private imageBaseUrl = 'https://image.tmdb.org/t/p/w500';
+  private destroy$ = new Subject<void>();
 
   constructor(private peliculaService: PeliculasService) {}
 
@@ -25,20 +27,32 @@ export class SearchPeliculasComponent {
       return;
     }
 
+    // Llamamos al servicio para buscar películas
     this.peliculaService.buscarEtiqueta(value);
-    this.peliculaService.listadoPeliculas$.subscribe(
-      peliculas => this.movies = peliculas
+    this.peliculaService.listadoPeliculas$.pipe(takeUntil(this.destroy$)).subscribe(
+      peliculas => {
+        this.movies = peliculas;
+      },
+      error => {
+        console.error('Error en la búsqueda de películas', error);
+      }
     );
   }
 
-   // Resetea la búsqueda cuando se presiona Enter sin nada en el campo
-   public resetSearch() {
+  // Resetea la búsqueda
+  public resetSearch() {
     const value: string = this.searchInput.value?.trim() || '';
     if (!value) {
-      this.movies = []; // Limpia los resultados
-      this.selectedMovie = undefined; // Limpia la película seleccionada
-      this.searchInput.reset(); // Limpia el campo de búsqueda
+      this.movies = [];
+      this.selectedMovie = undefined;
+      this.searchInput.reset();
     }
+  }
+
+  // Limpia la suscripción cuando el componente se destruya
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   public onSelectedOption(event: MatAutocompleteSelectedEvent) {
@@ -53,5 +67,10 @@ export class SearchPeliculasComponent {
 
   public getPosterUrl(posterPath: string | null): string {
     return posterPath ? `${this.imageBaseUrl}${posterPath}` : 'assets/no-image.png';
+  }
+
+  addToFavorites(pelicula: Result) {
+    this.peliculaService.ingresarFavorito(pelicula);
+    console.log('Película añadida a favoritos:', pelicula.title);
   }
 }

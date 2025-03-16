@@ -12,36 +12,30 @@ import { User } from '../shared/interfaces/peliculas';
   providedIn: 'root'
 })
 export class AuthService {
+  private token: string | null = null;
+  private user?: User;
+
   constructor(
     private http: HttpClient,
     private router: Router,
     private cookieService: CookieService,
     private commonService: CommonService
   ) {}
-  private user?: User;
 
   get currentUser(): User | undefined {
-    if (!this.user) return undefined;
-    return structuredClone(this.user);
+    return this.user ? structuredClone(this.user) : undefined;
   }
+
 
   doLogin(data: Record<string, any>) {
     return this.http.post<ApiResponse>(`${URL_API}/login.php`, JSON.stringify(data)).pipe(
       tap(response => {
-        if (response?.ok) {
-          console.log('Usuario:', response?.data?.usuario); // Depuración
-
-          // Verifica que el token existe y se guarda correctamente
-          if (response?.data?.token) {
-            localStorage.setItem('authToken', response?.data?.token);
-            localStorage.setItem('usuario', response?.data?.usuario);
-
-
-            // Redirigir a 'peliculas-list' después del login
-            this.router.navigate(['/pagina-principal']).then(() => {
-              console.log('Redirigiendo a peliculas-list');
-            });
-          }
+        if (response?.ok && response?.data?.token) {
+          localStorage.setItem('authToken', response?.data?.token);
+          localStorage.setItem('usuario', response?.data?.usuario);
+          this.router.navigate(['/pagina-principal']);
+        } else {
+          console.error('Error en el login');
         }
       })
     );
@@ -61,28 +55,24 @@ export class AuthService {
       return false;
     }
   }
+
   doLogout() {
     const usuario = localStorage.getItem('usuario');
 
     if (!usuario) {
       console.error('No hay usuario en el localStorage');
-      this.router.navigate(['/home']); // 🔄 Asegura que se redirija al home incluso si no hay usuario
+      this.router.navigate(['/home']);
       return;
     }
 
-    const body = new FormData();
-    body.append('user', usuario);
-
-    this.http.post(`${URL_API}/logout.php`, body).subscribe(
+    this.http.post(`${URL_API}/logout.php`, { user: usuario }).subscribe(
       () => {
-        console.log('Sesión cerrada en el servidor');
         this.cookieService.deleteAll();
         localStorage.clear();
-        this.router.navigate(['/home']); // 🔄 Redirige al home tras cerrar sesión
+        this.router.navigate(['/home']);
       },
-      (error) => {
+      error => {
         console.error('Error al cerrar sesión:', error);
-        // Redirige de todos modos para evitar que el usuario quede atrapado en una sesión rota
         this.router.navigate(['/home']);
       }
     );

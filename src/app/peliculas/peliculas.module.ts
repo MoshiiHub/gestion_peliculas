@@ -22,12 +22,15 @@ import { MatListModule } from '@angular/material/list';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { SearchPeliculasComponent } from './pages/search-peliculas/search-peliculas.component';
 import { FavoritoPeliculaComponent } from './pages/favorito-pelicula/favorito-pelicula.component';
+import { DetallesPeliculasComponent } from './detalles-peliculas/detalles-peliculas.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
 
 @NgModule({
-  declarations: [CardComponent, PeliculasListComponent,LayoutPageComponent, SearchPeliculasComponent, FavoritoPeliculaComponent],
+  declarations: [CardComponent, PeliculasListComponent,LayoutPageComponent, SearchPeliculasComponent, FavoritoPeliculaComponent, DetallesPeliculasComponent],
   imports: [
     CommonModule,
      MatNativeDateModule,
@@ -46,6 +49,8 @@ import { FavoritoPeliculaComponent } from './pages/favorito-pelicula/favorito-pe
         MatSidenavModule,
         MatToolbarModule,
         MatListModule,
+        MatGridListModule,
+        MatProgressSpinnerModule,
         PeliculasRoutingModule,
 
 

@@ -1,0 +1,33 @@
+<mat-card *ngIf="pelicula; else loadingTemplate">
+  <mat-card-header>
+    <mat-card-title>{{ pelicula.title }}</mat-card-title>
+    <mat-card-subtitle>{{ pelicula.release_date | date: 'yyyy' }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <!-- Imagen de la película -->
+  <img mat-card-image [src]="getPosterUrl(pelicula.poster_path)" [alt]="pelicula.title">
+
+  <mat-card-content>
+    <!-- Lista de detalles de la película -->
+    <mat-list>
+      <mat-list-item><strong>Resumen:</strong> {{ pelicula.overview || 'No disponible' }}</mat-list-item>
+      <mat-list-item><strong>Popularidad:</strong> {{ pelicula.popularity }}</mat-list-item>
+      <mat-list-item><strong>Promedio de Votación:</strong> {{ pelicula.vote_average }}</mat-list-item>
+      <mat-list-item><strong>Votos:</strong> {{ pelicula.vote_count }}</mat-list-item>
+      <mat-list-item><strong>Fecha de Lanzamiento:</strong> {{ pelicula.release_date | date: 'longDate' }}</mat-list-item>
+      <mat-list-item><strong>Idioma Original:</strong> {{ pelicula.original_language | uppercase }}</mat-list-item>
+    </mat-list>
+  </mat-card-content>
+
+  <!-- Botón para volver al listado de películas -->
+  <mat-card-actions>
+    <button mat-button [routerLink]="['/peliculas-list']">
+      Volver al listado
+    </button>
+  </mat-card-actions>
+</mat-card>
+
+<!-- Plantilla de carga mientras se obtiene la película -->
+<ng-template #loadingTemplate>
+  <mat-spinner></mat-spinner> <!-- Mostrar un spinner mientras se cargan los detalles -->
+</ng-template>

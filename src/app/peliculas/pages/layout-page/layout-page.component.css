@@ -15,3 +15,7 @@ h1 {
   padding: 20px; /* Puedes ajustar este valor si necesitas más espacio */
   text-align: center; /* Centra el contenido dentro de este div */
 }
+.mat-sidenav-container {
+  height: 100vh;
+  background: linear-gradient(to right, #c1fa7f, #7fd7fa);
+}

@@ -4,20 +4,21 @@
   <mat-form-field>
     <mat-label>Buscar películas</mat-label>
     <input type="text"
-     matInput
-     [formControl]="searchInput"
-     (input)="searchMovie()"
-     [matAutocomplete]="auto"
-     />
+           matInput
+           [formControl]="searchInput"
+           (input)="searchMovie()"
+           [matAutocomplete]="auto" />
 
     <mat-autocomplete autoActiveFirstOption
-     #auto="matAutocomplete"
-     (optionSelected)="onSelectedOption($event)">
+                      #auto="matAutocomplete"
+                      (optionSelected)="onSelectedOption($event)">
 
+      <!-- Lista de películas -->
       <mat-option *ngFor="let movie of movies" [value]="movie">
         {{ movie.title }} ({{ movie.release_date | date:'yyyy' }})
       </mat-option>
 
+      <!-- Mensaje cuando no hay resultados -->
       <mat-option *ngIf="movies.length === 0 && searchInput.value" value="">
         No se encontraron resultados con el término "{{ searchInput.value }}"
       </mat-option>
@@ -34,5 +35,6 @@
     <img [src]="getPosterUrl(selectedMovie.poster_path)" [alt]="selectedMovie.title">
   </div>
 
-  {{ searchInput.value | json }}
+  <!-- Mostrar el valor actual del input (para debugging o desarrollo) -->
+  <div>{{ searchInput.value | json }}</div>
 </div>
