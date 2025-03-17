@@ -23,10 +23,8 @@ const routes: Routes = [
   {
     path: 'pagina-principal',
     loadChildren: () => import('./peliculas/peliculas.module').then(m => m.PeliculasModule),
-    canActivate: [AuthGuardPublic]
 
   },
-
   {
     path: '404',
     component: Error404PageComponent

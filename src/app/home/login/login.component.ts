@@ -29,7 +29,6 @@ export class LoginComponent {
 
   private authService = inject(AuthService);
   private router = inject(Router);
-  private cookieService = inject(CookieService);
   private snackBar = inject(MatSnackBar);
   private commonService = inject(CommonService);
 
@@ -55,15 +54,19 @@ export class LoginComponent {
           Authorization: `Bearer ${RESPONSE.data.token}`
         }));
 
-        this.router.navigate([`/${RESPONSE.data.accion}`]);
+        const destino = '/pagina-principal/inicio';
+        console.log(`✅ Redirigiendo a: ${destino}`);
+
+        this.router.navigate([destino]);
       } else {
         this.manejarError(RESPONSE);
       }
     } catch (error) {
-      console.error('Error en la autenticación:', error);
+      console.error('❌ Error en la autenticación:', error);
       this.snackBar.open('Error al iniciar sesión. Intente de nuevo.', 'Cerrar', { duration: 5000 });
     }
   }
+
 
   manejarError(RESPONSE: any) {
     if (RESPONSE.data?.valido === 0) {

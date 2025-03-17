@@ -19,8 +19,8 @@ const routes: Routes = [
   {path: 'search-peliculas', component:SearchPeliculasComponent,canActivate:[AuthGuardPublic]},
   {path: 'favoritos', component: FavoritoPeliculaComponent,canActivate:[AuthGuardPublic]},
   { path: 'peliculas/:id', component: DetallesPeliculasComponent,canActivate:[AuthGuardPublic] },
-  {path: 'inicio', component: InicioComponent,canActivate:[AuthGuardPublic]},
-  {path: '**', redirectTo: '404'}
+  {path: 'inicio', component: InicioComponent},
+
     ]},
 ];
 

@@ -33,9 +33,14 @@ export class AuthService {
         if (response?.ok && response?.data?.token) {
           localStorage.setItem('authToken', response?.data?.token);
           localStorage.setItem('usuario', response?.data?.usuario);
-          this.router.navigate(['/pagina-principal']);
+
+          const destino = '/pagina-principal/inicio';
+          console.log(`✅ Redirigiendo a: ${destino}`);
+
+          this.router.navigate([destino]);
+
         } else {
-          console.error('Error en el login');
+          console.error('❌ Error en el login: Respuesta no válida');
         }
       })
     );
