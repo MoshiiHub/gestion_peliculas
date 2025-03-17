@@ -1,0 +1,20 @@
+.bienvenida {
+  background-color: white; /* Fondo blanco */
+  padding: 20px;            /* Espacio dentro del recuadro */
+  border: 2px solid #ccc;   /* Borde gris */
+  border-radius: 10px;      /* Bordes redondeados */
+  max-width: 900px;         /* Ancho máximo */
+  margin: 20px auto;        /* Centrado en la página */
+  text-align: center;       /* Centra el texto e imagen */
+}
+
+.bienvenida h1 {
+  color: #333;              /* Color del título */
+  font-size: 24px;          /* Tamaño de fuente */
+  margin-bottom: 10px;      /* Espacio entre el título y la imagen */
+}
+
+.bienvenida img {
+  width: 300px;             /* Ajusta el tamaño de la imagen */
+  height: auto;             /* Mantiene la proporción de la imagen */
+}

@@ -22,9 +22,10 @@ import { MatListModule } from '@angular/material/list';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { SearchPeliculasComponent } from './pages/search-peliculas/search-peliculas.component';
 import { FavoritoPeliculaComponent } from './pages/favorito-pelicula/favorito-pelicula.component';
-import { DetallesPeliculasComponent } from './detalles-peliculas/detalles-peliculas.component';
+
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DetallesPeliculasComponent } from './pages/detalles-peliculas/detalles-peliculas.component';
 
 
 
@@ -56,6 +57,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
   ],
-  exports: [CardComponent, PeliculasListComponent,LayoutPageComponent, SearchPeliculasComponent],
+  exports: [CardComponent, PeliculasListComponent,LayoutPageComponent, SearchPeliculasComponent, FavoritoPeliculaComponent, DetallesPeliculasComponent],
 })
 export class PeliculasModule { }

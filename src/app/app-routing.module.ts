@@ -31,6 +31,10 @@ const routes: Routes = [
     path: '404',
     component: Error404PageComponent
   },
+  {
+    path: '**',
+    redirectTo: '404'
+  }
 
 ];
 

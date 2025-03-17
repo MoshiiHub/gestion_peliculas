@@ -60,7 +60,9 @@ export class AuthService {
     const usuario = localStorage.getItem('usuario');
 
     if (!usuario) {
-      console.error('No hay usuario en el localStorage');
+      console.warn('No hay usuario en localStorage, pero igual limpiamos sesión.');
+      this.cookieService.deleteAll();
+      localStorage.clear();
       this.router.navigate(['/home']);
       return;
     }

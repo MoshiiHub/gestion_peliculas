@@ -1,5 +1,5 @@
 <div class="flex flex-column p-2">
-  <h3>Buscador de Películas</h3>
+  <h1>🎬 Buscador de Películas 🎬</h1>
 
   <mat-form-field>
     <mat-label>Buscar películas</mat-label>
@@ -33,6 +33,9 @@
     <p><strong>Idioma Original:</strong> {{ selectedMovie.original_language | uppercase }}</p>
     <p><strong>Resumen:</strong> {{ selectedMovie.overview }}</p>
     <img [src]="getPosterUrl(selectedMovie.poster_path)" [alt]="selectedMovie.title">
+    <br>
+     <!-- Botón de ver detalle -->
+     <button mat-button [routerLink]="['/pagina-principal/peliculas', selectedMovie.id]">Ver Detalles</button>
   </div>
 
   <!-- Mostrar el valor actual del input (para debugging o desarrollo) -->

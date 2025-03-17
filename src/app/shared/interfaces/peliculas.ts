@@ -29,7 +29,13 @@ export interface DB{
 }
 
 export interface User {
-  id:      string;
-  usuario: string;
-  email:   string;
+  id_usuario: number;      // ID del usuario
+  usuario: string;         // Nombre de usuario
+  nombre_publico?: string; // Nombre visible públicamente
+  id_rol?: number;         // ID del rol
+  habilitado?: boolean;    // Estado del usuario (habilitado o no)
+  token_sesion?: string;   // Token de sesión
+  token_passwd?: string;   // Token para recuperación de contraseña
+  token_passwd_expira?: string; // Fecha de expiración del token de recuperación
+  observaciones?: string;  // Comentarios u observaciones
 }

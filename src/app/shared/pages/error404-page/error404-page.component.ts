@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class Error404PageComponent {
   constructor(private router: Router) {}
 
-  goBack() {
-    this.router.navigate([this.router.url]); // Te llevará de vuelta a la página anterior
+  goInicio() {
+    this.router.navigate(['/pagina-principal/inicio']);
   }
 }
