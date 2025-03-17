@@ -10,7 +10,7 @@
       <img [src]="pelicula.poster_path ? 'https://image.tmdb.org/t/p/w500' + pelicula.poster_path : 'assets/no-image.png'" alt="Póster de {{ pelicula.title }}">
       <h3>{{ pelicula.title }}</h3>
       <p>{{ pelicula.release_date | date }}</p>
-      <button (click)="quitarFavorito(pelicula)">Quitar de favoritos</button>
+
     </div>
   </div>
 </div>

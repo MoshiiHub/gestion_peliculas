@@ -26,12 +26,13 @@ import { FavoritoPeliculaComponent } from './pages/favorito-pelicula/favorito-pe
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DetallesPeliculasComponent } from './pages/detalles-peliculas/detalles-peliculas.component';
+import { GestionUsuariosComponent } from './pages/gestion-usuarios/gestion-usuarios.component';
 
 
 
 
 @NgModule({
-  declarations: [CardComponent, PeliculasListComponent,LayoutPageComponent, SearchPeliculasComponent, FavoritoPeliculaComponent, DetallesPeliculasComponent],
+  declarations: [CardComponent, PeliculasListComponent,LayoutPageComponent, SearchPeliculasComponent, FavoritoPeliculaComponent, DetallesPeliculasComponent, GestionUsuariosComponent],
   imports: [
     CommonModule,
      MatNativeDateModule,

@@ -13,7 +13,7 @@ export class LayoutPageComponent {
     { label: 'Buscador de peliculas', url: '/pagina-principal/search-peliculas', icon: 'movie' },
     { label: 'Favoritos', url: '/pagina-principal/favoritos', icon: 'favorite' },
     { label: 'Listado de peliculas', url: '/pagina-principal/peliculas-list', icon: 'list' },
-    { label: 'Perfil', url: '/pagina-principal/perfil', icon: 'person' }
+    { label: 'Gestion de usuarios', url: '/pagina-principal/gestion-usuarios', icon: 'person' }
   ];
 
   constructor(private authService: AuthService) {}

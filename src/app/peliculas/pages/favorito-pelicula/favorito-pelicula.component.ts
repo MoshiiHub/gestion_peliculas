@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
+import { FavoritosService } from 'src/app/services/favoritos.service';
 import { PeliculasService } from 'src/app/services/peliculas.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 import { Result } from 'src/app/shared/interfaces/peliculas';
 
 @Component({
@@ -9,22 +12,13 @@ import { Result } from 'src/app/shared/interfaces/peliculas';
 })
 export class FavoritoPeliculaComponent {
   favoritos: Result[] = [];
+  idUsuario!: number;
 
-  constructor(private peliculasService: PeliculasService) {}
+  constructor(private favoritosService: FavoritosService,
+    private usuarioService: UsuarioService
+  ) {}
 
   ngOnInit(): void {
-    this.obtenerFavoritos();
-  }
 
-  obtenerFavoritos() {
-    this.peliculasService.obtenerFavoritos();
-    this.peliculasService.favoritos$.subscribe(favoritos => {
-      this.favoritos = favoritos;
-    });
-  }
-  quitarFavorito(pelicula: Result) {
-    this.peliculasService.quitarFavorito(pelicula);  // Llamamos al método del servicio
-    // Actualizamos la lista de favoritos después de quitar la película
-    this.obtenerFavoritos();
   }
 }
