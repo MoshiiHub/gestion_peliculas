@@ -1,0 +1,80 @@
+.container {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.usuario-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input, select, textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+button[mat-button] {
+  background-color: #007bff;
+  color: white;
+}
+
+button[mat-button]:hover {
+  background-color: #0056b3;
+}
+
+button[mat-button]:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+button[mat-button]:nth-child(2) {
+  background-color: #ccc;
+  color: #000;
+}
+
+button[mat-button]:nth-child(2):hover {
+  background-color: #bbb;
+}

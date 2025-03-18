@@ -1,25 +1,27 @@
-<h1>Listado de Usuarios</h1>
-<mat-divider></mat-divider>
-<!-- Botón para agregar un nuevo usuario -->
-<div class="add-user-btn">
-  <button mat-raised-button color="primary" >+ Agregar Usuario</button>
-</div>
+<div>
+  <h1>Listado de Usuarios</h1>
+  <mat-divider></mat-divider>
 
-
-<div class="grid mb-8">
-  <div *ngFor="let usuario of usuarios" class="col-12 sm:col-4 md:col-3 lg:col-2">
-    <mat-card class="usuario-card">
-      <mat-card-header>
-        <mat-card-title>{{ usuario.nombre_publico }}</mat-card-title>
-        <mat-card-subtitle>{{ usuario.rol }}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <p><strong>Usuario:</strong> {{ usuario.usuario }}</p>
-        <p><strong>Habilitado:</strong> {{ usuario.habilitado }}</p>
-        <p><strong>Nombre publico:</strong> {{ usuario.nombre_publico }}</p>
-      </mat-card-content>
-      <button mat-button (click)="openEditDialog(usuario)">🔧 Editar</button>
-      <button mat-button (click)="deleteUsuario(usuario)">❌ Eliminar</button>
-    </mat-card>
+   <!-- Botón para agregar un nuevo usuario -->
+   <div class="add-user-btn">
+    <button mat-raised-button color="primary" (click)="openAddDialog()">+ Agregar Usuario</button>
   </div>
-</div>
+  <div class="grid mb-8">
+    <div *ngFor="let usuario of usuarios" class="col-12 sm:col-4 md:col-3 lg:col-2">
+
+      <mat-card class="usuario-card">
+        <mat-card-header>
+          <mat-card-title>{{ usuario.nombre_publico }}</mat-card-title>
+          <mat-card-subtitle>{{ usuario.rol }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p><strong>Usuario:</strong> {{ usuario.usuario }}</p>
+          <p><strong>Habilitado:</strong> {{ usuario.habilitado ? 'Sí' : 'No' }}</p>
+          <p><strong>Nombre público:</strong> {{ usuario.nombre_publico }}</p>
+        </mat-card-content>
+        <button mat-button (click)="openEditDialog(usuario)">🔧 Editar</button>
+        <button mat-button (click)="deleteUsuario(usuario)">❌ Eliminar</button>
+      </mat-card>
+
+    </div>
+  </div>

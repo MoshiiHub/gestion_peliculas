@@ -9,6 +9,8 @@ import { AuthGuardPublic } from '../guards/auth.guard';
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { DetallesPeliculasComponent } from './pages/detalles-peliculas/detalles-peliculas.component';
 import { GestionUsuariosComponent } from './pages/gestion-usuarios/gestion-usuarios.component';
+import { AdminGuard } from '../guards/admin.guard';
+
 
 // Asegúrate de importar el componente
 
@@ -20,7 +22,7 @@ const routes: Routes = [
   {path: 'search-peliculas', component:SearchPeliculasComponent,canActivate:[AuthGuardPublic]},
   {path: 'favoritos', component: FavoritoPeliculaComponent,canActivate:[AuthGuardPublic]},
   { path: 'peliculas/:id', component: DetallesPeliculasComponent,canActivate:[AuthGuardPublic] },
-  {path: 'gestion-usuarios', component: GestionUsuariosComponent,canActivate:[AuthGuardPublic]},
+  {path: 'gestion-usuarios', component: GestionUsuariosComponent },
   {path: 'inicio', component: InicioComponent},
 
     ]},

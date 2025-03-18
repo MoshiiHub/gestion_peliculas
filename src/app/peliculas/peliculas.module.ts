@@ -13,6 +13,7 @@ import { FavoritoPeliculaComponent } from './pages/favorito-pelicula/favorito-pe
 import { DetallesPeliculasComponent } from './pages/detalles-peliculas/detalles-peliculas.component';
 import { GestionUsuariosComponent } from './pages/gestion-usuarios/gestion-usuarios.component';
 import { EditUsuarioDialogComponent } from './pages/gestion-usuarios/edit-usuario/edit-usuario.component';
+import { AddUsuarioComponent } from './pages/gestion-usuarios/add-usuario/add-usuario.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { EditUsuarioDialogComponent } from './pages/gestion-usuarios/edit-usuari
     DetallesPeliculasComponent,
     GestionUsuariosComponent,
     EditUsuarioDialogComponent,
+    AddUsuarioComponent
   ],
   imports: [
     CommonModule,
@@ -32,6 +34,7 @@ import { EditUsuarioDialogComponent } from './pages/gestion-usuarios/edit-usuari
     ReactiveFormsModule,
     PeliculasRoutingModule,
     MaterialModule, // Use the MaterialModule here
+    ReactiveFormsModule
   ],
   exports: [
     CardComponent,
@@ -42,6 +45,7 @@ import { EditUsuarioDialogComponent } from './pages/gestion-usuarios/edit-usuari
     DetallesPeliculasComponent,
     GestionUsuariosComponent,
     EditUsuarioDialogComponent,
+    AddUsuarioComponent
   ],
 })
 export class PeliculasModule {}

@@ -4,6 +4,7 @@ import { Usuario } from 'src/app/shared/interfaces/usuario';
 import { ApiResponse } from '../../../shared/interfaces/api-response';
 import { EditUsuarioDialogComponent } from './edit-usuario/edit-usuario.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AddUsuarioComponent } from './add-usuario/add-usuario.component';
 
 
 @Component({
@@ -13,6 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class GestionUsuariosComponent {
   usuarios: Usuario[] = [];
+  usuarioLogueado: any;
 
 
   constructor(private usuarioService: UsuarioService
@@ -23,6 +25,9 @@ export class GestionUsuariosComponent {
     this.usuarioService.getAllUsuarios().subscribe(response => {
       console.log("Usuarios obtenidos:", response.data);
       this.usuarios = response.data;
+    });
+    this.usuarioService.getAllUsuarios().subscribe(usuario => {
+      this.usuarioLogueado = usuario;
     });
   }
 
@@ -35,6 +40,18 @@ export class GestionUsuariosComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.ok) {
         this.ngOnInit(); // Reload the users list if a user was edited successfully
+      }
+    });
+  }
+
+  openAddDialog() {
+    const dialogRef = this.dialog.open(AddUsuarioComponent, {
+      width: '400px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.ok) {
+        this.ngOnInit(); // Recargar la lista de usuarios si se agrega uno nuevo
       }
     });
   }
