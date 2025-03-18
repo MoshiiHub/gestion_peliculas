@@ -5,11 +5,9 @@ import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { SearchPeliculasComponent } from './pages/search-peliculas/search-peliculas.component';
 import { FavoritoPeliculaComponent } from './pages/favorito-pelicula/favorito-pelicula.component';
 import { AuthGuardPublic } from '../guards/auth.guard';
-
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { DetallesPeliculasComponent } from './pages/detalles-peliculas/detalles-peliculas.component';
 import { GestionUsuariosComponent } from './pages/gestion-usuarios/gestion-usuarios.component';
-import { AdminGuard } from '../guards/admin.guard';
 
 
 // Asegúrate de importar el componente

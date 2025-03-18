@@ -2,10 +2,18 @@
   <h1>Listado de Usuarios</h1>
   <mat-divider></mat-divider>
 
-   <!-- Botón para agregar un nuevo usuario -->
-   <div class="add-user-btn">
-    <button mat-raised-button color="primary" (click)="openAddDialog()">+ Agregar Usuario</button>
+  <!-- Botón para agregar un nuevo usuario -->
+
+  <div *ngIf="idGuardado==='1'">
+    <div class="add-user-btn">
+      <button mat-raised-button color="primary" (click)="openAddDialog()">+ Agregar Usuario</button>
+    </div>
   </div>
+
+  <div *ngIf="idGuardado==='2'">
+    <h1>Usted es un usuario, no tiene permisos aqui.</h1>
+  </div>
+
   <div class="grid mb-8">
     <div *ngFor="let usuario of usuarios" class="col-12 sm:col-4 md:col-3 lg:col-2">
 

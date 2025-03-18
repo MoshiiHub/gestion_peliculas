@@ -25,7 +25,7 @@ export class FavoritoPeliculaComponent {
 
   obtenerUsuario(): void {
     this.usuarioService.getAllUsuarios().subscribe(response => {
-      this.idUsuario = response.data[0].id;
+      this.idUsuario = response.data[0].id_usuario;
     })
   }
 
@@ -36,14 +36,22 @@ export class FavoritoPeliculaComponent {
   }
 
   agregarFavorito(idPelicula: number): void {
+    if (!this.idUsuario) {
+      console.error("Error: idUsuario no definido");
+      alert("❌ No se pudo agregar a favoritos. Usuario no definido.");
+      return;
+    }
+
     this.favoritosService.agregarFavorito(this.idUsuario, idPelicula).subscribe(response => {
       if (response.status) {
         this.obtenerFavoritos();
       }
       alert(response.message);
+    }, error => {
+      console.error("Error en la petición:", error);
+      alert("❌ No se pudo agregar la película a favoritos.");
     });
   }
-
   eliminarFavorito(idPelicula: number): void {
     this.favoritosService.eliminarFavorito(this.idUsuario, idPelicula).subscribe(response => {
       if (response.status) {

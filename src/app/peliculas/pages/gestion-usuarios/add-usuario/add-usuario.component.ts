@@ -7,6 +7,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { Rol } from 'src/app/shared/interfaces/rol';
 import { CLOSE, INVALID_FORM } from 'src/app/shared/messages';
 import { Usuario } from 'src/app/shared/interfaces/usuario';
+import { lastValueFrom } from 'rxjs';
 
 
 @Component({
@@ -30,13 +31,12 @@ export class AddUsuarioComponent implements OnInit {
   ngOnInit() {
     this.usuarioForm = new FormGroup({
       usuario: new FormControl(null, [Validators.required, Validators.email]),
-      pass_user: new FormControl(null, [Validators.required]),
-      id_rol: new FormControl(null, [Validators.required]), // Asegura que esto tenga un valor inicial correcto
+      password: new FormControl(null, [Validators.required]),
+      id_rol: new FormControl(null, [Validators.required]),
       habilitado: new FormControl(Number(1)),
       nombre_publico: new FormControl(null),
       observaciones: new FormControl(null)
-    });
-
+   });
     console.log('Formulario inicializado:', this.usuarioForm.value);
     this.getRoles();
   }
@@ -58,19 +58,18 @@ export class AddUsuarioComponent implements OnInit {
 
   async confirmAdd() {
     if (this.usuarioForm.valid) {
-      const usuario = this.usuarioForm.value;
+      const usuario = this.usuarioForm.value as Usuario;
       try {
-        const RESP = await this.servicioUsuario.addUsuario(usuario).toPromise();
+        const RESP = await lastValueFrom(this.servicioUsuario.addUsuario(usuario));
+
         if (RESP && RESP.ok) {
-          this.snackBar.open(RESP.message ?? 'Success', CLOSE, { duration: 5000 });
-          this.dialogRef.close({ ok: RESP.ok, data: RESP.data });
-          // Actualiza la lista de usuarios en el componente principal o en la UI
-          this.ngOnInit(); // Esto es solo un ejemplo de lo que podrías hacer
+          this.snackBar.open(RESP.message ?? 'Usuario creado exitosamente', CLOSE, { duration: 5000 });
+          this.dialogRef.close({ ok: true, data: RESP.data }); // Devuelve el usuario creado
         } else {
-          this.snackBar.open(RESP?.message || 'Error: Response undefined', CLOSE, { duration: 5000 });
+          this.snackBar.open(RESP?.message || 'Error en la respuesta del servidor', CLOSE, { duration: 5000 });
         }
       } catch (error) {
-        this.snackBar.open('Ocurrió un error al procesar la solicitud.', CLOSE, { duration: 5000 });
+        this.snackBar.open('Ocurrió un error al crear el usuario.', CLOSE, { duration: 5000 });
         console.error(error);
       }
     } else {

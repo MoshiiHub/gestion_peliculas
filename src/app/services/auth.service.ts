@@ -22,9 +22,6 @@ export class AuthService {
     private commonService: CommonService
   ) {}
 
-  get currentUser(): User | undefined {
-    return this.user ? structuredClone(this.user) : undefined;
-  }
 
 
   doLogin(data: Record<string, any>) {

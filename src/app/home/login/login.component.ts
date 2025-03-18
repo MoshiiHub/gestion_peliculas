@@ -22,7 +22,7 @@ export class LoginComponent {
     password: new FormControl('', Validators.required)
   });
 
-  titulo = 'Acceso CRM RADFPD';
+  titulo = 'Acceso';
   alerta: string = '';
   showSpinner = false;
   error: string = '';
@@ -48,6 +48,7 @@ export class LoginComponent {
         localStorage.setItem('nombre_publico', RESPONSE.data.nombre_publico);
         localStorage.setItem('ultimaOpcion', RESPONSE.data.opcion);
         localStorage.setItem('ultimoGrupo', RESPONSE.data.grupo);
+        localStorage.setItem('id_rol', RESPONSE.data.id_rol);
 
         this.commonService.setHeaders(new HttpHeaders({
           'Content-Type': 'application/json',

@@ -21,6 +21,8 @@ export class CommonService {
     });
   }
 
+
+
   public setHeaders(headers: HttpHeaders) {
     this.headers = headers;
   }
@@ -35,6 +37,12 @@ export class CommonService {
   getHeaders(): HttpHeaders {
     return this.headers;
   }
+
+  showError(message: string): void {
+    // Aquí puedes usar cualquier librería de notificaciones, o incluso un simple alert
+    alert(message); // Este es solo un ejemplo simple
+  }
+
 
   public static divideEvenly(numerator: number, minPartSize: number): number[] {
     if (numerator / minPartSize < 2) {

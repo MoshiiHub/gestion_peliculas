@@ -17,6 +17,10 @@ export class GestionUsuariosComponent {
   usuarioLogueado: any;
 
 
+  // 1 admin 2 usuario
+
+  idGuardado = localStorage.getItem('id_rol');
+
   constructor(private usuarioService: UsuarioService
     , public dialog: MatDialog
   ) { }
