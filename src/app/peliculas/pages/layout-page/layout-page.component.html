@@ -22,13 +22,13 @@
   <mat-toolbar color="primary">
     <button mat-icon-button (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
-      <span class="spacer">Menu</span>
+      <span class="spacer">   Menu</span>
     </button>
     <span class="spacer"></span> <!-- Esto empuja el contenido a la izquierda -->
 
 
     <!-- Aquí agregamos otro spacer para empujar el logout a la derecha -->
-    <button mat-button color="warn" (click)="logout()" style="margin-left:auto">
+    <button mat-button (click)="logout()" style="margin-left:auto">
 
       <mat-icon>logout</mat-icon>
       Logout

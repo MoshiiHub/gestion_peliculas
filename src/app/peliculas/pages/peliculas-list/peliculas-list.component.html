@@ -18,9 +18,6 @@
         <p><strong>Sinopsis:</strong> {{ pelicula.overview || 'No disponible' }}</p>
       </mat-card-content>
 
-      <!-- Separador de la tarjeta -->
-      <mat-divider></mat-divider>
-
       <!-- Contenedor de los botones de acción -->
       <div class="card-actions">
         <!-- Botón para añadir a favoritos -->
@@ -29,7 +26,7 @@
         </button>
 
         <!-- Botón "Más" -->
-        <button mat-button mat-raised [routerLink]="['/peliculas', pelicula.id]">
+        <button mat-button mat-raised [routerLink]="['/pagina-principal/peliculas', pelicula.id]">
           <mat-icon>more_horiz</mat-icon>
 
         </button>

@@ -69,8 +69,4 @@ export class SearchPeliculasComponent {
     return posterPath ? `${this.imageBaseUrl}${posterPath}` : 'assets/no-image.png';
   }
 
-  addToFavorites(pelicula: Result) {
-    this.peliculaService.ingresarFavorito(pelicula);
-    console.log('Película añadida a favoritos:', pelicula.title);
-  }
 }

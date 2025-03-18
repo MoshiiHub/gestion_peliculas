@@ -65,4 +65,9 @@ export class UsuarioService {
     }
   }
 
+  updateUsuarios(usuario: Usuario): Observable<ApiResponse> {
+    const body = JSON.stringify(usuario); // Convertir usuario a JSON
+    return this.http.put<ApiResponse>(`${URL_API}/${ENDPOINT}.php`, body, { headers: this.commonService.getHeaders() });
+  }
+
 }

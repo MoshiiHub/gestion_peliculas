@@ -1,0 +1,50 @@
+<div class="container">
+  <h3 mat-dialog-title>Editar usuario</h3>
+
+  <form class="mat-dialog-content" [formGroup]="usuarioForm">
+
+    <!-- Correo electrónico -->
+    <div class="form">
+      <label for="usuario">Correo electrónico</label>
+      <input id="usuario" type="email" formControlName="usuario" name="usuario" placeholder="Correo electrónico" required>
+    </div>
+
+    <!-- Nombre público -->
+    <div class="form">
+      <label for="nombre_publico">Nombre público</label>
+      <input id="nombre_publico" type="text" formControlName="nombre_publico" name="nombre_publico" placeholder="Nombre público" required>
+    </div>
+
+    <!-- Rol -->
+    <div class="form">
+      <label for="id_rol">Rol</label>
+      <select id="id_rol" formControlName="id_rol">
+        <option *ngFor="let rol of roles" [value]="rol.id_rol">
+          {{ rol.id_rol }} - {{ rol.rol }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Checkbox de habilitado -->
+    <div class="form habilitado">
+      <label>
+        <input type="checkbox" formControlName="habilitado"> Usuario habilitado
+      </label>
+    </div>
+
+    <!-- Observaciones -->
+    <div class="form">
+      <label for="observaciones">Observaciones</label>
+      <textarea id="observaciones" formControlName="observaciones" placeholder="Observaciones"></textarea>
+    </div>
+
+    <!-- Acciones -->
+    <div mat-dialog-actions>
+      <button mat-button id="onSubmit" type="submit" [disabled]="!usuarioForm.valid" (click)="confirmAdd()">Guardar</button>
+      <button mat-button id="onNoClick" (click)="onNoClick()" tabindex="-1">Cancelar</button>
+    </div>
+
+  </form>
+
+</div>
+

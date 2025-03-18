@@ -11,11 +11,12 @@ h1 {
 
 .container {
   display: block; /* Cambiamos a block para que no afecte el layout general */
-  margin: 0 auto; /* Centra el contenido de manera horizontal */
-  padding: 20px; /* Puedes ajustar este valor si necesitas más espacio */
   text-align: center; /* Centra el contenido dentro de este div */
+  margin: 0 auto; /* Centra el div horizontalmente */
+
 }
 .mat-sidenav-container {
   height: 100vh;
   background: linear-gradient(to right, #c1fa7f, #7fd7fa);
+  width: 100%;
 }

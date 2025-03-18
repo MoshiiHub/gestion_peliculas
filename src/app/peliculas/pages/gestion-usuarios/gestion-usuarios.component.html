@@ -1,5 +1,10 @@
 <h1>Listado de Usuarios</h1>
 <mat-divider></mat-divider>
+<!-- Botón para agregar un nuevo usuario -->
+<div class="add-user-btn">
+  <button mat-raised-button color="primary" >+ Agregar Usuario</button>
+</div>
+
 
 <div class="grid mb-8">
   <div *ngFor="let usuario of usuarios" class="col-12 sm:col-4 md:col-3 lg:col-2">
@@ -13,8 +18,8 @@
         <p><strong>Habilitado:</strong> {{ usuario.habilitado }}</p>
         <p><strong>Nombre publico:</strong> {{ usuario.nombre_publico }}</p>
       </mat-card-content>
-      <button mat-button (click)="editUsuario(usuario)">Editar</button>
-      <button mat-button color="warn" (click)="deleteUsuario(usuario)">Eliminar</button>
+      <button mat-button (click)="openEditDialog(usuario)">🔧 Editar</button>
+      <button mat-button (click)="deleteUsuario(usuario)">❌ Eliminar</button>
     </mat-card>
   </div>
 </div>

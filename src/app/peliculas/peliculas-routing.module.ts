@@ -20,7 +20,7 @@ const routes: Routes = [
   {path: 'search-peliculas', component:SearchPeliculasComponent,canActivate:[AuthGuardPublic]},
   {path: 'favoritos', component: FavoritoPeliculaComponent,canActivate:[AuthGuardPublic]},
   { path: 'peliculas/:id', component: DetallesPeliculasComponent,canActivate:[AuthGuardPublic] },
-  {path: 'gestion-usuarios', component: GestionUsuariosComponent},
+  {path: 'gestion-usuarios', component: GestionUsuariosComponent,canActivate:[AuthGuardPublic]},
   {path: 'inicio', component: InicioComponent},
 
     ]},

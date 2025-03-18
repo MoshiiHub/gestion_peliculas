@@ -1,28 +1,39 @@
 .favoritos-container {
+  text-align: center;
   padding: 20px;
 }
 
+.favoritos-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
 .pelicula-card {
-  display: inline-block;
   width: 200px;
-  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
   text-align: center;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .pelicula-card img {
   width: 100%;
-  height: auto;
+  border-radius: 5px;
 }
 
-.pelicula-card button {
-  margin-top: 10px;
-  padding: 5px 10px;
+.eliminar-btn {
+  margin-top: 8px;
   background-color: red;
   color: white;
   border: none;
+  padding: 5px 10px;
   cursor: pointer;
+  border-radius: 5px;
 }
 
-.pelicula-card button:hover {
+.eliminar-btn:hover {
   background-color: darkred;
 }

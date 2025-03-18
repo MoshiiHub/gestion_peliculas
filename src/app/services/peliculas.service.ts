@@ -33,13 +33,27 @@ export class PeliculasService {
 
   private cargarSession() {
     const storedSessionId = localStorage.getItem('sessionId');
-    console.log('sessionId cargado desde localStorage:', storedSessionId);
     if (storedSessionId) {
       this.sessionId = storedSessionId;
+      console.log('sessionId cargado desde localStorage:', storedSessionId);
     } else {
-      console.log('No se encontró un sessionId');
+      console.log('No se encontró un sessionId en localStorage');
     }
   }
+
+  clearSession() {
+    this.sessionId = null;
+    localStorage.removeItem('sessionId');
+    console.log('sessionId eliminado de localStorage');
+  }
+
+  // En algún lugar de tu código, después de obtener el sessionId de la API
+setSession(sessionId: string) {
+  this.sessionId = sessionId;
+  localStorage.setItem('sessionId', sessionId);
+  console.log('sessionId guardado en localStorage:', sessionId);
+}
+
 
   private cargarLocalStorage() {
     const historial = localStorage.getItem('historialEtiqueta');
@@ -112,81 +126,12 @@ getMovieById(id: number) {
       .pipe(
         catchError(err => {
           console.error('Error al obtener películas populares', err);
-          return of({ page: pagina, results: [], total_pages: 0, total_results: 0 });
+          return of({ page: pagina, results: [], total_pages: 20, total_results: 0 });
         })
       )
       .subscribe(resp => {
         this.listadoPeliculas = resp.results || [];
         this.listadoPeliculasSubject.next(this.listadoPeliculas);
-      });
-  }
-
-
-  ingresarFavorito(pelicula: Result) {
-    const existe = this._favoritos.find(p => p.id === pelicula.id);
-    if (!existe) {
-      this._favoritos.push(pelicula);
-      this.favoritosSubject.next(this._favoritos);
-    }
-  }
-
-
-  obtenerFavoritos() {
-    return [...this._favoritos];
-  }
-
-
-  obtenerFavoritosDesdeApi() {
-    if (!this.sessionId) {
-      console.error('No hay sesión activa');
-      return;
-    }
-
-    const params = new HttpParams().set('api_key', this.apiKey);
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
-
-    this.http.get<Peliculas>(`${this.serveUrl}/account/{account_id}/favorite/movies?session_id=${this.sessionId}`, { headers, params })
-      .pipe(
-        catchError(err => {
-          console.error('Error al obtener películas favoritas', err);
-          return of({ results: [] });
-        })
-      )
-      .subscribe(resp => {
-        if (resp.results) {
-          this.favoritosSubject.next(resp.results);
-        }
-      });
-  }
-
-
-  quitarFavorito(pelicula: Result) {
-    if (!this.sessionId) {
-      console.error('No hay sesión activa');
-      return;
-    }
-
-    const params = new HttpParams().set('api_key', this.apiKey);
-    const body = {
-      media_type: 'movie',
-      media_id: pelicula.id,
-      favorite: false
-    };
-
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
-
-    this.http.post(`${this.serveUrl}/account/{account_id}/favorite?session_id=${this.sessionId}`, body, { headers, params })
-      .pipe(
-        catchError(err => {
-          console.error('Error al quitar película de favoritos', err);
-          return of(null);
-        })
-      )
-      .subscribe(resp => {
-        if (resp) {
-          this._favoritos = this._favoritos.filter(p => p.id !== pelicula.id);
-          this.favoritosSubject.next(this._favoritos);
-        }
       });
   }
 
