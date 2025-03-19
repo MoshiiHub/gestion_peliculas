@@ -7,12 +7,25 @@
 
   <div *ngIf="favoritos.length > 0" class="favoritos-grid">
     <div class="pelicula-card" *ngFor="let pelicula of favoritos">
-      <img [src]="pelicula.poster_path ? 'https://image.tmdb.org/t/p/w500' + pelicula.poster_path : 'assets/no-image.png'"
-           alt="Póster de {{ pelicula.title }}">
-      <h3>{{ pelicula.title }}</h3>
-      <p>{{ pelicula.release_date | date }}</p>
-      <button (click)="eliminarFavorito(pelicula.id)" class="eliminar-btn">❌ Quitar</button>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{ pelicula.title }}</mat-card-title>
+          <mat-card-subtitle>{{ pelicula.release_date | date }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <!-- Imagen de la película -->
+        <img mat-card-image [src]="getPosterUrl(pelicula.poster_path)" [alt]="pelicula.title">
+
+        <!-- Contenedor de los botones de acción -->
+        <div class="card-actions">
+          <!-- Botón para quitar de favoritos -->
+          <button mat-button mat-raised color="warn" (click)="eliminarFavorito(pelicula.id)">
+            <mat-icon>favorite_border</mat-icon> Quitar de Favoritos
+          </button>
+        </div>
+      </mat-card>
     </div>
   </div>
 </div>
+
 

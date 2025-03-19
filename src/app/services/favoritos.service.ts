@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
 import { URL_API } from 'src/environments/environment'; // ✅ Asegúrate de importar correctamente
 import { CommonService } from '../shared/common.service';
-import { Peliculas } from '../shared/interfaces/peliculas';
+import { ApiResponse } from '../shared/interfaces/api-response';
+import { Result } from '../shared/interfaces/peliculas';
 
 const ENDPOINT = 'peliculas_favoritas'; // El endpoint correspondiente a la API PHP
 
@@ -11,23 +12,16 @@ const ENDPOINT = 'peliculas_favoritas'; // El endpoint correspondiente a la API 
   providedIn: 'root'
 })
 export class FavoritosService {
-  constructor(private http: HttpClient, private commonService: CommonService) {}
+
+  constructor(private http: HttpClient, private commonService: CommonService) { }
 
   private token: string | null = localStorage.getItem('authToken');
 
   // Obtener películas favoritas del usuario
-  obtenerFavoritos(): Observable<any> {
-    return this.http.get(`${URL_API}/${ENDPOINT}.php?route=listar_favoritas`, {
-      headers: new HttpHeaders({
-        'Authorization': `Bearer ${this.token}`,
-      })
-    }).pipe(
-      catchError((error) => {
-        console.error('Error al obtener las películas favoritas', error);
-        this.commonService.showError('No se pudo obtener las películas favoritas.');
-        throw error;
-      })
-    );
+
+
+  obtenerFavoritos(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${URL_API}/${ENDPOINT}.php`, { headers: this.commonService.getHeaders() });
   }
 
   agregarFavorito(idPelicula: number): Observable<any> {
@@ -59,7 +53,7 @@ export class FavoritosService {
 
   // Eliminar película de favoritos
   eliminarFavorito(idPelicula: number): Observable<any> {
-    const url = `${URL_API}/${ENDPOINT}.php?route=eliminar_favorito&id_pelicula=${idPelicula}`;
+    const url = `${URL_API}/${ENDPOINT}.php?=${idPelicula}`;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.token}`,

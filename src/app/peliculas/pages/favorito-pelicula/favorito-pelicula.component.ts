@@ -1,8 +1,8 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
+
 import { FavoritosService } from 'src/app/services/favoritos.service';
 import { PeliculasService } from 'src/app/services/peliculas.service';
-import { UsuarioService } from 'src/app/services/usuario.service';
 import { CommonService } from 'src/app/shared/common.service';
 import { Result } from 'src/app/shared/interfaces/peliculas';
 
@@ -17,16 +17,19 @@ export class FavoritoPeliculaComponent {
 
   constructor(
     private favoritosService: FavoritosService,
+    private peliculasService: PeliculasService,
     private commonService: CommonService, // Inyecta el servicio para el snackbar
   ) {}
 
   ngOnInit(): void {
     this.checkTokenAndLoadFavorites();
+    this.obtenerFavoritos();
   }
 
   // Verifica el token y obtiene los favoritos si es válido
   private checkTokenAndLoadFavorites(): void {
     if (!this.userToken) {
+      console.error('Error: No hay token de usuario');
 
       return;
     }
@@ -36,20 +39,27 @@ export class FavoritoPeliculaComponent {
 
   // Obtener las películas favoritas
   obtenerFavoritos(): void {
-    if (!this.userToken) {
-      console.error('Error: No hay token de usuario');
-      return;
+    const userToken = localStorage.getItem('authToken');
+    if (!userToken) {
+      console.error('No se encontró el token de autorización');
+      throw new Error('Token no encontrado');
     }
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${userToken}`,  // Usar el token de localStorage
+      'Accept': 'application/json',
+    });
 
     this.favoritosService.obtenerFavoritos().subscribe({
       next: (response) => {
         this.favoritos = response.data;
       },
-      error: (error) => {
-        console.error('Error al obtener los favoritos:', error);
-
-      },
     });
+  }
+
+  public getPosterUrl(posterPath: string | null): string {
+    return posterPath ? `https://image.tmdb.org/t/p/w500${posterPath}` : 'assets/no-image.png';
   }
 
   // Agregar una película a favoritos
@@ -81,7 +91,6 @@ export class FavoritoPeliculaComponent {
       console.error('Error: No hay token de usuario');
       return;
     }
-
     if (confirm('¿Estás seguro de que deseas eliminar esta película de tus favoritos?')) {
       this.favoritosService.eliminarFavorito(idPelicula).subscribe({
         next: (response) => {
