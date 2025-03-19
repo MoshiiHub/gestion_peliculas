@@ -1,5 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
@@ -8,7 +9,9 @@ import { CookieService } from 'ngx-cookie-service';
 export class CommonService {
   private headers: HttpHeaders = new HttpHeaders();
 
-  constructor(private cookieService: CookieService) {
+  constructor(private cookieService: CookieService,
+    private snackBar: MatSnackBar
+  ) {
     this.updateHeaders();
   }
 
@@ -18,6 +21,12 @@ export class CommonService {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
       ...(token ? { Authorization: `Bearer ${token}` } : {}) // Solo agrega si hay token
+    });
+  }
+  showSuccess(message: string): void {
+    this.snackBar.open(message, 'Cerrar', {
+      duration: 3000,
+      panelClass: ['success-snackbar'],
     });
   }
 

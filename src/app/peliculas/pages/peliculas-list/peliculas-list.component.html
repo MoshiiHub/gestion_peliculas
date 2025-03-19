@@ -11,12 +11,9 @@
       </mat-card-header>
 
       <!-- Imagen de la película -->
-      <img mat-card-image [src]="imageUrl(pelicula.poster_path)" [alt]="pelicula.title">
+  <img mat-card-image [src]="getPosterUrl(pelicula.poster_path)" [alt]="pelicula.title">
 
-      <!-- Contenido de la película (sinopsis) -->
-      <mat-card-content>
-        <p><strong>Sinopsis:</strong> {{ pelicula.overview || 'No disponible' }}</p>
-      </mat-card-content>
+
 
       <!-- Contenedor de los botones de acción -->
       <div class="card-actions">

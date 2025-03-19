@@ -5,8 +5,7 @@ import { Result } from 'src/app/shared/interfaces/peliculas';
 @Component({
   selector: 'heroes-hero-card',
   templateUrl: './card.component.html',
-  styles: [
-  ]
+  styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
   listadoPeliculas = [];

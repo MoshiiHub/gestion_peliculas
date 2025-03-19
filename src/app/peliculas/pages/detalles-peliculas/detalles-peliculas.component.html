@@ -10,13 +10,20 @@
   <mat-card-content>
     <!-- Lista de detalles de la película -->
     <mat-list>
-      <mat-list-item><strong>Resumen:</strong> {{ pelicula.overview || 'No disponible' }}</mat-list-item>
+
       <mat-list-item><strong>Popularidad:</strong> {{ pelicula.popularity }}</mat-list-item>
       <mat-list-item><strong>Promedio de Votación:</strong> {{ pelicula.vote_average }}</mat-list-item>
       <mat-list-item><strong>Votos:</strong> {{ pelicula.vote_count }}</mat-list-item>
-      <mat-list-item><strong>Fecha de Lanzamiento:</strong> {{ pelicula.release_date | date: 'longDate' }}</mat-list-item>
       <mat-list-item><strong>Idioma Original:</strong> {{ pelicula.original_language | uppercase }}</mat-list-item>
+      <mat-list-item><strong>Titulo Original:</strong> {{ pelicula.original_title }}</mat-list-item>
+      <mat-list-item><strong>Fecha de Estreno:</strong> {{ pelicula.release_date | date: 'dd/MM/yyyy' }}</mat-list-item>
+
     </mat-list>
+
+    <div class ="resumen"><strong>Resumen:</strong>
+    {{ pelicula.overview || 'No disponible' }}</div>
+
+
   </mat-card-content>
 
   <!-- Botón para volver al listado de películas -->

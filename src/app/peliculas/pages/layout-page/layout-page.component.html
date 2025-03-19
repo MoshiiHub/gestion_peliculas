@@ -2,7 +2,7 @@
   <!-- Sidebar -->
   <mat-sidenav #sidenav mode="push" [ngStyle]="{width: '250px'}">
     <mat-toolbar color="primary">
-      <span>Menu </span>
+      <span>Menu</span>
       <span class="spacer"></span>
       <button mat-icon-button (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
@@ -10,7 +10,6 @@
     </mat-toolbar>
 
     <mat-nav-list>
-      <!-- Elimina el (click)="sidenav.close()" -->
       <a mat-list-item *ngFor="let item of sidebarItems" [routerLink]="item.url" (click)="sidenav.close()">
         <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
         {{ item.label }}
@@ -18,27 +17,30 @@
     </mat-nav-list>
   </mat-sidenav>
 
-  <!-- Toolbar superior -->
-  <mat-toolbar color="primary">
+  <!-- Barra de navegación superior -->
+  <mat-toolbar color="primary" class="toolbar-content">
     <button mat-icon-button (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
-      <span class="spacer">   Menu</span>
+      <span class="spacer">Menu</span>
     </button>
-    <span class="spacer"></span> <!-- Esto empuja el contenido a la izquierda -->
 
+    <span class="spacer"></span> <!-- Empuja el contenido a la derecha -->
 
-    <!-- Aquí agregamos otro spacer para empujar el logout a la derecha -->
-    <button mat-button (click)="logout()" style="margin-left:auto">
-
-      <mat-icon>logout</mat-icon>
-      Logout
-    </button>
+    <!-- Contenedor para el usuario y logout -->
+    <div class="user-info">
+      <span class="user-name">{{ userName }}</span>
+      <button mat-button (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        Logout
+      </button>
+    </div>
   </mat-toolbar>
 
   <!-- Contenido principal -->
   <div class="container p-2">
     <router-outlet></router-outlet>
-    <br>
   </div>
 </mat-sidenav-container>
+
+
 

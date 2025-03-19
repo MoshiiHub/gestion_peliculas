@@ -1,36 +1,38 @@
 /* Contenedor de la grilla de tarjetas */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); /* Ajusta el tamaño de las tarjetas */
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); /* Columnas flexibles */
   gap: 10px;  /* Espaciado entre las tarjetas */
   margin-bottom: 20px;
 }
 
 /* Estilos para las tarjetas de película */
 .movie-card {
-  max-width: 100%;
-  min-height: 400px; /* Altura fija para las tarjetas */
+  width: 100%; /* Asegura que todas tengan el mismo ancho */
+  height: 570px; /* Altura mínima para mantener el tamaño uniforme */
   display: flex;
   flex-direction: column;
+  justify-content: space-between; /* Distribuye los elementos */
   background-color: #3F51B5;
   color: white;
-  padding: 5px;
+  padding: 10px;
   border-radius: 8px;
   box-shadow: 0px 4px 6px rgba(19, 32, 216, 0.1);
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Efecto de hover sobre las tarjetas */
+/* Efecto de hover */
 .movie-card:hover {
   transform: scale(1.05);
   box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Header de la tarjeta (título y fecha) */
+/* Header de la tarjeta */
 .mat-card-header {
   background-color: #f5f5f5;
-  padding: 16px;
+  padding: 12px;
+  text-align: center;
 }
 
 /* Título de la tarjeta */
@@ -40,7 +42,7 @@
   color: #333;
 }
 
-/* Subtítulo (fecha) de la tarjeta */
+/* Subtítulo de la tarjeta */
 .mat-card-subtitle {
   font-size: 1rem;
   color: gray;
@@ -49,24 +51,25 @@
 /* Imagen de la película */
 .mat-card-image {
   width: 100%;
-  height: 200px; /* Altura fija para la imagen */
-  object-fit: cover; /* Hace que la imagen ocupe todo el espacio sin distorsionarse */
+  height: 200px; /* Mantiene las imágenes del mismo tamaño */
+  object-fit: cover;
   display: block;
+  border-radius: 6px;
 }
 
 /* Contenido de la tarjeta (sinopsis) */
 .mat-card-content {
-  padding: 16px;
+  padding: 10px;
   font-size: 0.9rem;
-  color: #444;
-  flex-grow: 1; /* Hace que el contenido ocupe el espacio restante */
+  color: #eee;
+  flex-grow: 1; /* Expande el contenido */
   overflow: hidden;
-  text-overflow: ellipsis; /* Agrega '...' si el texto es demasiado largo */
+  text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
 }
 
-/* División de la tarjeta */
+/* Separador */
 .mat-divider {
   margin: 10px 0;
 }
@@ -75,29 +78,35 @@
 .card-actions {
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  align-items: center;
   padding: 10px;
-  background-color: #92ffdb;
+  background-color: #25496f;
   border-top: 1px solid #ddd;
 }
 
-/* Estilos de los botones de acción */
+/* Estilos de los botones */
 .card-actions button {
   padding: 5px 10px;
-  background-color: #25496f;
-  color: white;
+  background-color: #92ffdb;
+  color: black;
+  font-weight: bold;
   border: none;
   border-radius: 4px;
+  cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-/* Efecto hover de los botones */
+/* Hover de los botones */
 .card-actions button:hover {
   background-color: #f8f54f;
 }
 
-#sidebar{
+/* Sidebar */
+#sidebar {
   height: 100vh;
-
 }
 
+img {
+  width: 100%;
+  height: 100%;
+}
