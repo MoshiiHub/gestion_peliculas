@@ -51,20 +51,21 @@ export class FavoritosService {
     );
   }
 
-  // Eliminar película de favoritos
-  eliminarFavorito(idPelicula: number): Observable<any> {
-    const url = `${URL_API}/${ENDPOINT}.php?=${idPelicula}`;
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.token}`,
-    });
 
-    return this.http.delete(url, { headers }).pipe(
-      catchError((error) => {
-        console.error('Error al eliminar la película de favoritos:', error);
-        this.commonService.showError('No se pudo eliminar la película de favoritos.');
-        throw error;
-      })
-    );
-  }
+ // Eliminar película de favoritos
+eliminarFavorito(idPelicula: number): Observable<any> {
+  const url = `${URL_API}/${ENDPOINT}.php?id_favorito=${idPelicula}`;  // Corrige la URL
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${this.token}`,
+  });
+
+  return this.http.delete(url, { headers }).pipe(
+    catchError((error) => {
+      console.error('Error al eliminar la película de favoritos:', error);
+      this.commonService.showError('No se pudo eliminar la película de favoritos.');
+      throw error;
+    })
+  );
+}
 }

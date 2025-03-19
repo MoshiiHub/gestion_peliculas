@@ -14,7 +14,7 @@ import { Result } from 'src/app/shared/interfaces/peliculas';
 export class FavoritoPeliculaComponent {
   favoritos: Result[] = [];
   userToken: string | null = localStorage.getItem('authToken'); // Obtener token del localStorage
-
+  favoritosId: number[] = [];
   constructor(
     private favoritosService: FavoritosService,
     private peliculasService: PeliculasService,
@@ -40,6 +40,7 @@ export class FavoritoPeliculaComponent {
   // Obtener las películas favoritas
   obtenerFavoritos(): void {
     const userToken = localStorage.getItem('authToken');
+
     if (!userToken) {
       console.error('No se encontró el token de autorización');
       throw new Error('Token no encontrado');
@@ -54,6 +55,9 @@ export class FavoritoPeliculaComponent {
     this.favoritosService.obtenerFavoritos().subscribe({
       next: (response) => {
         this.favoritos = response.data;
+        console.log(response);
+        console.log(this.favoritos);
+
       },
     });
   }
