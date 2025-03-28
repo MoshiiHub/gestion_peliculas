@@ -1,10 +1,10 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
-
 import { FavoritosService } from 'src/app/services/favoritos.service';
 import { PeliculasService } from 'src/app/services/peliculas.service';
 import { CommonService } from 'src/app/shared/common.service';
-import { Result } from 'src/app/shared/interfaces/peliculas';
+import { Favoritos} from 'src/app/shared/interfaces/peliculas';
+
 
 @Component({
   selector: 'app-favorito-pelicula',
@@ -12,19 +12,22 @@ import { Result } from 'src/app/shared/interfaces/peliculas';
   styleUrls: ['./favorito-pelicula.component.css']
 })
 export class FavoritoPeliculaComponent {
-  favoritos: Result[] = [];
-  userToken: string | null = localStorage.getItem('authToken'); // Obtener token del localStorage
+  favoritos: Favoritos[] = [];
+  userToken: string | null = localStorage.getItem('authToken');
   favoritosId: number[] = [];
   constructor(
     private favoritosService: FavoritosService,
     private peliculasService: PeliculasService,
-    private commonService: CommonService, // Inyecta el servicio para el snackbar
+    private commonService: CommonService,
   ) {}
 
   ngOnInit(): void {
-    this.checkTokenAndLoadFavorites();
+    if (!this.userToken) {
+        console.error('Error: No hay token de usuario');
+        return;
+    }
     this.obtenerFavoritos();
-  }
+}
 
   // Verifica el token y obtiene los favoritos si es válido
   private checkTokenAndLoadFavorites(): void {
@@ -37,8 +40,7 @@ export class FavoritoPeliculaComponent {
     this.obtenerFavoritos();
   }
 
-  // Obtener las películas favoritas
-  obtenerFavoritos(): void {
+  obtenerIdsPeliculasFavoritas(): Promise<number[]> {
     const userToken = localStorage.getItem('authToken');
 
     if (!userToken) {
@@ -48,25 +50,39 @@ export class FavoritoPeliculaComponent {
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${userToken}`,  // Usar el token de localStorage
+      'Authorization': `Bearer ${userToken}`,
       'Accept': 'application/json',
     });
 
-    this.favoritosService.obtenerFavoritos().subscribe({
-      next: (response) => {
-        this.favoritos = response.data;
-        console.log(response);
-        console.log(this.favoritos);
-
-      },
+    return new Promise((resolve, reject) => {
+      this.favoritosService.obtenerFavoritos().subscribe({
+        next: (response) => {
+          const favoritos: Favoritos[] = response.data; // Tipar response.data
+          const favoritosId = favoritos.map((favorito: Favoritos) => favorito.id_pelicula); // Tipar favorito
+          resolve(favoritosId);
+        },
+        error: (error) => {
+          reject(error);
+        }
+      });
     });
   }
+
+  async obtenerDetallesPeliculasFavoritas(idsPeliculas: number[]): Promise<any[]> {
+    const peliculasFavoritas = await Promise.all(idsPeliculas.map(async (id) => {
+      const pelicula = await this.peliculasService.getMovieById(id).toPromise();
+      return pelicula;
+    }));
+
+    return peliculasFavoritas;
+  }
+
 
   public getPosterUrl(posterPath: string | null): string {
     return posterPath ? `https://image.tmdb.org/t/p/w500${posterPath}` : 'assets/no-image.png';
   }
 
-  // Agregar una película a favoritos
+  // Agregar una película a favoritos funciona bien
   agregarFavorito(idPelicula: number): void {
     if (!this.userToken) {
       console.error('Error: No hay token de usuario');
@@ -88,8 +104,21 @@ export class FavoritoPeliculaComponent {
       },
     });
   }
+  async obtenerFavoritos(): Promise<void> {
+    try {
+      const idsPeliculas = await this.obtenerIdsPeliculasFavoritas();
+      this.favoritosId = idsPeliculas;
+      console.log('Favoritos ID:', this.favoritosId);
 
-  // Eliminar una película de favoritos
+      const peliculasFavoritas = await this.obtenerDetallesPeliculasFavoritas(idsPeliculas);
+      this.favoritos = peliculasFavoritas;
+      console.log('Peliculas favoritas:', this.favoritos);
+    } catch (error) {
+      console.error('Error al obtener películas favoritas:', error);
+    }
+  }
+
+  // Eliminar una película de favoritos funciona bien
   eliminarFavorito(idPelicula: number): void {
     if (!this.userToken) {
       console.error('Error: No hay token de usuario');

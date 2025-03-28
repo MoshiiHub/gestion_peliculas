@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
 import { URL_API } from 'src/environments/environment'; // ✅ Asegúrate de importar correctamente
@@ -13,6 +13,9 @@ const ENDPOINT = 'peliculas_favoritas'; // El endpoint correspondiente a la API 
 })
 export class FavoritosService {
 
+  private apiKey = '8f6ad54766ad4f66cdf85a360b029b35';
+  private serveUrl = 'https://api.themoviedb.org/3';
+
   constructor(private http: HttpClient, private commonService: CommonService) { }
 
   private token: string | null = localStorage.getItem('authToken');
@@ -21,7 +24,16 @@ export class FavoritosService {
 
 
   obtenerFavoritos(): Observable<ApiResponse> {
+
     return this.http.get<ApiResponse>(`${URL_API}/${ENDPOINT}.php`, { headers: this.commonService.getHeaders() });
+
+  }
+
+  getMovieById(id: number) {
+    const params = new HttpParams()
+    .set('api_key', this.apiKey)
+    .set('language', 'es-ES');
+    return this.http.get<Result>(`${this.serveUrl}/movie/${id}`, { params });
   }
 
   agregarFavorito(idPelicula: number): Observable<any> {

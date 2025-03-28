@@ -36,8 +36,12 @@
     <br>
      <!-- Botón de ver detalle -->
      <button mat-button [routerLink]="['/pagina-principal/peliculas', selectedMovie.id]">Ver Detalles</button>
+
+     <!-- Botón para añadir a favoritos -->
+    <button mat-button mat-raised color="primary" (click)="addToFavorites(selectedMovie)">
+      <mat-icon>favorite</mat-icon>
+      Añadir a Favoritos
+    </button>
   </div>
 
-  <!-- Mostrar el valor actual del input (para debugging o desarrollo) -->
-  <div>{{ searchInput.value | json }}</div>
 </div>

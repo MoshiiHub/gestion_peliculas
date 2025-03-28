@@ -13,9 +13,9 @@ import { CommonService } from 'src/app/shared/common.service';
   styleUrls: ['./peliculas-list.component.css']
 })
 export class PeliculasListComponent {
-
+//Para guardar la lista de peliculas
   peliculas: Result[] = [];
-  isLoading = true;  // Estado de carga
+  isLoading = true;
   paginaActual: number = 1;
   totalPages: number = 1;  // Total de páginas
   usuarios: Usuario | null = null;
@@ -25,7 +25,7 @@ export class PeliculasListComponent {
     private favoritoService: FavoritosService,
     private peliculasService: PeliculasService,
     private usuarioService: UsuarioService,
-    private commonService: CommonService // Inyectamos el servicio para mostrar notificaciones
+    private commonService: CommonService
   ) {}
 
   ngOnInit(): void {

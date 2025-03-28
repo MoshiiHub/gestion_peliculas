@@ -17,12 +17,13 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/pagina-principal',
+    redirectTo: '/pagina-principal/inicio',
     pathMatch: 'full'
   },
   {
     path: 'pagina-principal',
     loadChildren: () => import('./peliculas/peliculas.module').then(m => m.PeliculasModule),
+    canActivate: [AuthGuardPublic]
 
   },
   {

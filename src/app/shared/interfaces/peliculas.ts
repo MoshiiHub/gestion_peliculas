@@ -1,3 +1,4 @@
+import { FavoritosService } from '../../services/favoritos.service';
 export interface Peliculas {
   page:          number;
   results:       Result[];
@@ -26,6 +27,12 @@ export interface DB{
   users: User[];
   peliculas: Peliculas[];
 
+}
+
+export interface Favoritos{
+  id_favorito: number;
+  id_usuario: number;
+  id_pelicula: number;
 }
 
 export interface User {
