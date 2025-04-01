@@ -5,18 +5,18 @@
     <p>No tienes películas favoritas.</p>
   </div>
 
-  <div *ngIf="favoritos.length > 0" class="favoritos-grid">
-    <div class="pelicula-card" *ngFor="let pelicula of favoritos">
+  <div *ngIf="listaPeliculasFavoritas.length > 0" class="favoritos-grid">
+    <div class="pelicula-card" *ngFor="let pelicula of listaPeliculasFavoritas">
       <mat-card>
         <mat-card-header>
-          <mat-card-title>{{ pelicula.id_pelicula }}</mat-card-title>
-           <!-- <mat-card-subtitle>{{ pelicula.release_date | date }}</mat-card-subtitle>-->
+          <mat-card-title>{{ pelicula.title }}</mat-card-title>
+           <mat-card-subtitle>{{ pelicula.release_date | date }}</mat-card-subtitle>
         </mat-card-header>
 
-       <!-- Imagen de la filmer  <img mat-card-image [src]="getPosterUrl(pelicula.poster_path)" [alt]="pelicula.title">-->
+        Imagen de la filmer  <img mat-card-image [src]="getPosterUrl(pelicula.poster_path)" [alt]="pelicula.title">
 
         <div class="card-actions">
-          <button mat-button mat-raised color="warn" (click)="eliminarFavorito(pelicula.id_pelicula)">
+          <button mat-button mat-raised color="warn" (click)="eliminarFavorito(pelicula.id)">
             <mat-icon>favorite_border</mat-icon> Quitar de Favoritos
           </button>
         </div>

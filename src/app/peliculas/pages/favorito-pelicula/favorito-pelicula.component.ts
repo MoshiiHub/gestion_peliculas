@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FavoritosService } from 'src/app/services/favoritos.service';
 import { PeliculasService } from 'src/app/services/peliculas.service';
 import { CommonService } from 'src/app/shared/common.service';
-import { Favoritos} from 'src/app/shared/interfaces/peliculas';
+import { Favoritos, Result} from 'src/app/shared/interfaces/peliculas';
 
 
 @Component({
@@ -15,6 +15,7 @@ export class FavoritoPeliculaComponent {
   favoritos: Favoritos[] = [];
   userToken: string | null = localStorage.getItem('authToken');
   favoritosId: number[] = [];
+  listaPeliculasFavoritas: Result[] = [];
   constructor(
     private favoritosService: FavoritosService,
     private peliculasService: PeliculasService,
@@ -29,16 +30,6 @@ export class FavoritoPeliculaComponent {
     this.obtenerFavoritos();
 }
 
-  // Verifica el token y obtiene los favoritos si es válido
-  private checkTokenAndLoadFavorites(): void {
-    if (!this.userToken) {
-      console.error('Error: No hay token de usuario');
-
-      return;
-    }
-
-    this.obtenerFavoritos();
-  }
 
   obtenerIdsPeliculasFavoritas(): Promise<number[]> {
     const userToken = localStorage.getItem('authToken');
@@ -75,6 +66,18 @@ export class FavoritoPeliculaComponent {
     }));
 
     return peliculasFavoritas;
+  }
+
+  //convertir favoritos a peliculas que pueda ver la api
+  async obtenerPeliculasFavoritas(): Promise<void> {
+    try {
+      const idsPeliculas = await this.obtenerIdsPeliculasFavoritas();
+      const peliculasFavoritas = await this.obtenerDetallesPeliculasFavoritas(idsPeliculas);
+      this.listaPeliculasFavoritas = peliculasFavoritas;
+      console.log('Peliculas obtenidas:',this.listaPeliculasFavoritas);
+    } catch (error) {
+      console.error('Error al obtener las películas favoritas:', error);
+    }
   }
 
 
